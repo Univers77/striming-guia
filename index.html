@@ -258,8 +258,11 @@ h1 .c3{color:var(--fg)}
 .video-wrap::before{top:10px;left:10px;border-top:2px solid var(--c);border-left:2px solid var(--c)}
 .video-wrap::after{bottom:10px;right:10px;border-bottom:2px solid var(--m);border-right:2px solid var(--m)}
 .video-wrap video{
-  width:100%;display:block;
-  border-radius:var(--r);
+  width:100%;height:auto;display:block;
+  border-radius:0;
+  /* contain = muestra el video completo sin recortar ni hacer zoom */
+  object-fit:contain;
+  background:#000;
 }
 /* Floating label */
 .video-label{
@@ -465,7 +468,7 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
         controls
         preload="auto"
         playsinline
-        style="max-height:560px;object-fit:cover"
+        style="width:100%;height:auto;object-fit:contain;background:#000;display:block"
       >
         <source src="hero-bg.mp4" type="video/mp4">
         Tu navegador no soporta video HTML5.
