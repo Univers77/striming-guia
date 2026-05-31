@@ -229,6 +229,68 @@ h1 .c3{color:var(--fg)}
 .gwa-t strong{display:block;font-size:14px;font-weight:800;margin-bottom:2px}
 .gwa-t span{font-size:11px;color:rgba(34,197,94,.5)}
 
+/* ═══════════════ VIDEO SHOWCASE ═══════════════ */
+.video-sec{
+  background:var(--ink);
+  padding:clamp(52px,7vh,84px) clamp(16px,5vw,60px);
+  border-top:1px solid var(--bdr);
+}
+.video-inner{max-width:1000px;margin:0 auto}
+.video-wrap{
+  position:relative;
+  border-radius:var(--r);
+  overflow:hidden;
+  border:1px solid rgba(0,224,255,.18);
+  box-shadow:0 0 60px rgba(0,224,255,.12),0 30px 80px rgba(0,0,0,.6);
+  background:var(--ink2);
+  /* subtle glow ring */
+  outline:1px solid transparent;
+  transition:box-shadow .3s;
+}
+.video-wrap:hover{
+  box-shadow:0 0 80px rgba(0,224,255,.2),0 0 160px rgba(192,38,211,.08),0 30px 80px rgba(0,0,0,.7);
+}
+/* Corner brackets — cyber accent */
+.video-wrap::before,.video-wrap::after{
+  content:'';position:absolute;width:20px;height:20px;z-index:2;pointer-events:none;
+}
+.video-wrap::before{top:10px;left:10px;border-top:2px solid var(--c);border-left:2px solid var(--c)}
+.video-wrap::after{bottom:10px;right:10px;border-bottom:2px solid var(--m);border-right:2px solid var(--m)}
+.video-wrap video{
+  width:100%;display:block;
+  border-radius:var(--r);
+}
+/* Floating label */
+.video-label{
+  position:absolute;top:16px;right:16px;z-index:3;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(3,6,15,.85);
+  border:1px solid rgba(0,224,255,.25);
+  backdrop-filter:blur(12px);
+  border-radius:100px;
+  padding:6px 14px;
+  font-size:11px;font-weight:700;color:var(--c);
+  letter-spacing:.5px;
+}
+.video-label::before{
+  content:'';width:7px;height:7px;border-radius:50%;
+  background:var(--m);box-shadow:0 0 8px var(--m);
+  animation:bk 1.4s ease infinite;flex-shrink:0;
+}
+/* CTA below video */
+.video-cta-row{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  margin-top:20px;
+  padding:0 4px;
+}
+.video-desc{
+  font-size:clamp(13px,1.5vw,16px);
+  color:var(--fg2);line-height:1.5;
+  max-width:500px;
+}
+.video-desc strong{color:var(--fg)}
+
 /* ═══════════════ CONTENT ═══════════════ */
 .content{background:var(--ink3);padding:clamp(52px,7vh,84px) clamp(16px,5vw,60px);border-top:1px solid var(--bdr)}
 .ci{max-width:1140px;margin:0 auto}
@@ -328,7 +390,7 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
       poster=""
       id="heroBgVideo"
     >
-      <source src="hero-bg.mp4" type="video/mp4">
+      <source src="hero-ad.mp4" type="video/mp4">
     </video>
   </div>
   <!-- Atmospheric BG gradient (fallback + blend) -->
@@ -381,6 +443,39 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
     <div class="tki"><span class="td"></span>SOPORTE <em>WHATSAPP 24/7</em></div>
   </div>
 </div>
+
+<!-- VIDEO SHOWCASE -->
+<section class="video-sec" aria-label="Tu Latino TV Max en acción">
+  <div class="video-inner">
+    <div style="text-align:center;margin-bottom:28px">
+      <div class="sec-tag" style="justify-content:center">Tu Latino TV Max en acción</div>
+      <h2 class="sec-h2">Así se ve tu <span style="color:var(--c)">entretenimiento</span></h2>
+      <p style="font-size:14px;color:var(--fg2);line-height:1.6;max-width:460px;margin:8px auto 0">Fútbol, películas, series y más — todo desde una sola pantalla, en todos tus dispositivos.</p>
+    </div>
+    <div class="video-wrap">
+      <div class="video-label">Tu Latino TV Max</div>
+      <video
+        controls
+        preload="metadata"
+        playsinline
+        poster=""
+        style="max-height:560px;object-fit:cover"
+      >
+        <source src="hero-bg.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+      </video>
+    </div>
+    <div class="video-cta-row">
+      <p class="video-desc">
+        <strong>+51.000 películas · +12.000 series · +12.000 canales en vivo.</strong><br>
+        Activa tu prueba de 1 día gratis — sin contrato, en 3 minutos.
+      </p>
+      <a class="bwa" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max" target="_blank" rel="noopener" style="white-space:nowrap">
+        <span aria-hidden="true">💬</span> Activar ahora gratis
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- GUIDE -->
 <section id="guide" class="guide-sec">
