@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#060914">
+<meta name="description" content="Tu Latino TV Max — Fútbol, Películas, Series y TV en vivo. Prepárate para la temporada más grande del fútbol.">
+<title>Tu Latino TV Max — Premium Streaming Latino</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════ */
+:root {
+  --bg:        #060914;
+  --bg2:       #0b0f1e;
+  --bg3:       #111827;
+  --card:      rgba(255,255,255,0.04);
+  --card-b:    rgba(255,255,255,0.08);
+  --cyan:      #00d4ff;
+  --magenta:   #e040fb;
+  --gold:      #ffd700;
+  --white:     #f0f4ff;
+  --muted:     rgba(240,244,255,0.5);
+  --glow-c:    rgba(0,212,255,0.35);
+  --glow-m:    rgba(224,64,251,0.35);
+  --glow-g:    rgba(255,215,0,0.35);
+  --wa:        #25D366;
+  --r: 20px;
+  --r2: 14px;
+  --sb: env(safe-area-inset-bottom, 0px);
+  --st: env(safe-area-inset-top, 0px);
+}
+
+*, *::before, *::after {
+  margin: 0; padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--st);
+}
+
+/* ═══════════════════════════════════
+   CURSOR GLOW (desktop)
+═══════════════════════════════════ */
+#cursor-glow {
+  pointer-events: none;
+  position: fixed;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+  transform: translate(-50%,-50%);
+  z-index: 0;
+  transition: background 0.4s;
+}
+
+/* ═══════════════════════════════════
+   NOISE OVERLAY
+═══════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════════════════════
+   NAV
+═══════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s, backdrop-filter 0.4s;
+}
+.nav.scrolled {
+  background: rgba(6,9,20,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,212,255,0.1);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 800;
+  letter-spacing: -0.3px;
+  line-height: 1;
+}
+.nav-logo span { color: var(--cyan); }
+.nav-logo em { color: var(--magenta); font-style: normal; }
+.nav-cta {
+  background: var(--wa);
+  color: #fff;
+  border: none; cursor: pointer;
+  padding: 9px 18px;
+  border-radius: 50px;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; gap: 6px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { transform: scale(1.04); box-shadow: 0 0 20px rgba(37,211,102,0.4); }
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 24px 80px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Stadium BG layers */
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  overflow: hidden;
+}
+.hero-bg-grad {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(0,212,255,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 50%, rgba(224,64,251,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(255,215,0,0.05) 0%, transparent 60%),
+    linear-gradient(180deg, #060914 0%, #0b0f1e 50%, #060914 100%);
+}
+/* Animated stadium lights */
+.hero-lights {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 30% 60% at 10% 20%, rgba(0,212,255,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 60% at 90% 20%, rgba(0,212,255,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 20% 30% at 50% 100%, rgba(0,212,255,0.15) 0%, transparent 60%);
+  animation: lightsFlicker 4s ease-in-out infinite alternate;
+}
+@keyframes lightsFlicker {
+  0%   { opacity: 0.7; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+/* Grid lines */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particleDrift linear infinite;
+}
+@keyframes particleDrift {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.8; }
+  100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+}
+
+/* Hero content */
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.25);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 11px; font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 28px;
+  position: relative; z-index: 2;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan);
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.hero-h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 8vw, 76px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  position: relative; z-index: 2;
+  margin-bottom: 24px;
+}
+.hero-h1 .line1 { color: var(--white); display: block; }
+.hero-h1 .line2 {
+  display: block;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradShift 5s ease infinite;
+  background-size: 200% 100%;
+}
+@keyframes gradShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.hero-h1 .line3 { color: var(--white); display: block; }
+
+.hero-sub {
+  font-size: clamp(15px, 2vw, 19px);
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.6;
+  position: relative; z-index: 2;
+  margin-bottom: 40px;
+}
+
+.hero-ctas {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  justify-content: center;
+  position: relative; z-index: 2;
+  margin-bottom: 60px;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, var(--cyan), var(--magenta));
+  color: var(--bg);
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-size: 15px; font-weight: 800;
+  text-decoration: none; border: none; cursor: pointer;
+  box-shadow: 0 0 40px rgba(0,212,255,0.4), 0 0 80px rgba(224,64,251,0.2);
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative; overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.btn-primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 0 60px rgba(0,212,255,0.6), 0 0 100px rgba(224,64,251,0.3); }
+.btn-primary:hover::before { opacity: 1; }
+
+.btn-wa {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(37,211,102,0.12);
+  border: 1.5px solid rgba(37,211,102,0.4);
+  color: #4ddb8a;
+  padding: 15px 28px;
+  border-radius: 50px;
+  font-size: 14px; font-weight: 700;
+  text-decoration: none; cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+.btn-wa:hover { background: rgba(37,211,102,0.2); border-color: var(--wa); transform: translateY(-2px); }
+
+/* Hero pills */
+.hero-pills {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center;
+  position: relative; z-index: 2;
+}
+.pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 12px; font-weight: 600;
+  color: var(--muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+.pill:hover { border-color: var(--cyan); color: var(--cyan); }
+.pill-icon { font-size: 14px; }
+
+/* scroll indicator */
+.hero-scroll {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(180deg, transparent, var(--cyan));
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%   { height: 0; opacity: 0; }
+  50%  { height: 50px; opacity: 1; }
+  100% { height: 50px; opacity: 0; }
+}
+
+/* ═══════════════════════════════════
+   STATS BAR
+═══════════════════════════════════ */
+.stats-bar {
+  position: relative; z-index: 2;
+  padding: 0 24px;
+  margin: -20px 0 0;
+}
+.stats-inner {
+  max-width: 1100px; margin: 0 auto;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r);
+  backdrop-filter: blur(20px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  divide-x: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+.stat-item {
+  padding: 24px 20px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s;
+}
+.stat-item:last-child { border-right: none; }
+.stat-item:hover { background: rgba(0,212,255,0.04); }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  color: var(--cyan);
+  line-height: 1;
+}
+.stat-num.gold { color: var(--gold); }
+.stat-num.mag  { color: var(--magenta); }
+.stat-num.wa   { color: #4ddb8a; }
+.stat-label {
+  font-size: 11px; font-weight: 600;
+  color: var(--muted);
+  margin-top: 4px;
+  text-transform: uppercase; letter-spacing: 0.8px;
+}
+
+/* ═══════════════════════════════════
+   SECTIONS SHARED
+═══════════════════════════════════ */
+.section { padding: 100px 24px; position: relative; overflow: hidden; }
+.section-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--cyan);
+  margin-bottom: 16px;
+}
+.section-eyebrow::before { content: '—'; opacity: 0.5; }
+.section-h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+/* ═══════════════════════════════════
+   WORLD CUP SECTION
+═══════════════════════════════════ */
+.wc-section {
+  background: linear-gradient(180deg, var(--bg) 0%, #0d1020 50%, var(--bg) 100%);
+}
+.wc-trophy {
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(80px, 15vw, 160px);
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 40px rgba(255,215,0,0.5));
+  animation: trophyFloat 4s ease-in-out infinite;
+  position: relative;
+}
+@keyframes trophyFloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+.wc-trophy::before {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 30px;
+  background: radial-gradient(ellipse, rgba(255,215,0,0.4), transparent 70%);
+  border-radius: 50%;
+  animation: trophyShadow 4s ease-in-out infinite;
+}
+@keyframes trophyShadow {
+  0%,100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+  50%      { transform: translateX(-50%) scale(0.7); opacity: 0.3; }
+}
+.wc-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+.wc-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r);
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  cursor: default;
+}
+.wc-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0,212,255,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(0,212,255,0.1);
+}
+.wc-card-icon { font-size: 40px; margin-bottom: 14px; display: block; }
+.wc-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px; font-weight: 800;
+  margin-bottom: 8px;
+}
+.wc-card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* ═══════════════════════════════════
+   FEATURES HORIZONTAL SCROLL
+═══════════════════════════════════ */
+.features-section { background: var(--bg2); }
+.features-track {
+  display: flex; gap: 20px;
+  padding-bottom: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.features-track::-webkit-scrollbar { display: none; }
+.feat-card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  background: var(--card);
+  border: 1px solid var(--card-b);
+  border-radius: var(--r);
+  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.feat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.feat-card:hover { border-color: rgba(0,212,255,0.25); }
+.feat-card:hover::before { opacity: 1; }
+.feat-icon {
+  font-size: 36px; margin-bottom: 18px; display: block;
+  filter: drop-shadow(0 0 10px rgba(0,212,255,0.4));
+}
+.feat-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 800;
+  margin-bottom: 10px;
+}
+.feat-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ═══════════════════════════════════
+   INTERNET SPEED SECTION
+═══════════════════════════════════ */
+.speed-section {
+  background: linear-gradient(135deg, #060914 0%, #0a0d1f 100%);
+}
+.speed-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+@media (max-width: 700px) { .speed-grid { grid-template-columns: 1fr; } }
+
+.speedometer {
+  position: relative;
+  width: 260px; height: 260px;
+  margin: 0 auto;
+}
+.speed-svg { width: 100%; height: 100%; }
+.speed-arc-bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 12; stroke-linecap: round; }
+.speed-arc-fill {
+  fill: none;
+  stroke: url(#speedGrad);
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  transition: stroke-dashoffset 2s cubic-bezier(0.4,0,0.2,1);
+}
+.speed-needle {
+  transform-origin: 50% 75%;
+  transition: transform 2s cubic-bezier(0.4,0,0.2,1);
+}
+.speed-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 42px; font-weight: 800;
+  fill: var(--cyan);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.speed-unit { font-size: 14px; fill: var(--muted); text-anchor: middle; }
+
+.speed-items { list-style: none; }
+.speed-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.2s;
+}
+.speed-item:last-child { border-bottom: none; }
+.speed-item:hover { transform: translateX(6px); }
+.speed-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-green  { background: #4ddb8a; box-shadow: 0 0 10px #4ddb8a; }
+.dot-cyan   { background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+.dot-gold   { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+.dot-mag    { background: var(--magenta); box-shadow: 0 0 10px var(--magenta); }
+.speed-text { font-size: 14px; line-height: 1.4; }
+.speed-text strong { color: var(--white); font-weight: 700; display: block; font-size: 15px; }
+.speed-text span   { color: var(--muted); font-size: 12px; }
+
+/* ═══════════════════════════════════
+   DEVICE INSTALLER
+═══════════════════════════════════ */
+.install-section { background: var(--bg); }
+.devices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 36px;
+}
+@media (max-width: 500px) { .devices-grid { grid-template-columns: repeat(2, 1fr); } }
+.device-btn {
+  background: var(--card);
+  border: 1.5px solid var(--card-b);
+  border-radius: var(--r2);
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+}
+.device-btn:hover { border-color: rgba(0,212,255,0.4); background: rgba(0,212,255,0.05); }
+.device-btn.active {
+  border-color: var(--cyan);
+  background: rgba(0,212,255,0.08);
+  box-shadow: 0 0 30px rgba(0,212,255,0.15);
+}
+.device-btn.active::after {
+  content: '✓';
+  position: absolute; top: 8px; right: 10px;
+  font-size: 11px; color: var(--cyan); font-weight: 800;
+}
+.device-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+.device-name { font-size: 12px; font-weight: 700; color: var(--white); }
+.device-sub  { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+.steps-panel {
+  background: rgba(0,212,255,0.04);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: var(--r);
+  padding: 28px 24px;
+  display: none;
+}
+.steps-panel.visible { display: block; animation: fadeUp 0.4s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.steps-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px; font-weight: 800;
+  color: var(--cyan); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.step-row {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.step-row:last-child { border-bottom: none; }
+.step-num {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--magenta));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; color: var(--bg);
+}
+.step-txt { font-size: 14px; color: rgba(240,244,255,0.85); line-height: 1.55; }
+.step-txt strong { color: var(--white); font-weight: 700; }
+
+.steps-wa-hint {
+  margin-top: 20px;
+  background: rgba(37,211,102,0.08);
+  border: 1px solid rgba(37,211,102,0.25);
+  border-radius: var(--r2);
+  padding: 14px 18px;
+  font-size: 13px; color: #4ddb8a;
+  display: flex; align-items: center; gap: 10px;
+}
+
+/* ═══════════════════════════════════
+   ACCESS SECURITY
+═══════════════════════════════════ */
+.access-section { background: var(--bg2); }
+.access-card {
+  max-width: 600px; margin: 0 auto;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r);
+  padding: 48px 40px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.access-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,212,255,0.07), transparent 70%);
+  pointer-events: none;
+}
+.shield-icon {
+  font-size: 56px; display: block; margin-bottom: 20px;
+  filter: drop-shadow(0 0 20px rgba(0,212,255,0.5));
+}
+.access-h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 800; margin-bottom: 12px;
+}
+.access-p {
+  font-size: 15px; color: var(--muted);
+  line-height: 1.65; margin-bottom: 32px;
+  max-width: 400px; margin-left: auto; margin-right: auto;
+}
+.access-p + .access-p { margin-bottom: 32px; }
+
+/* ═══════════════════════════════════
+   WHATSAPP CTA FINAL
+═══════════════════════════════════ */
+.final-cta {
+  background: linear-gradient(135deg, #060914 0%, #0d1020 100%);
+  text-align: center;
+  padding: 120px 24px;
+  position: relative; overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(0,212,255,0.12), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 30% 50%, rgba(224,64,251,0.06), transparent 60%);
+}
+.final-inner { position: relative; z-index: 2; }
+.final-h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+.final-h2 em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.final-sub {
+  font-size: 17px; color: var(--muted);
+  max-width: 480px; margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.btn-wa-big {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--wa);
+  color: #fff;
+  padding: 20px 44px;
+  border-radius: 50px;
+  font-size: 18px; font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 0 60px rgba(37,211,102,0.45);
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative; overflow: hidden;
+}
+.btn-wa-big::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.btn-wa-big:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 10px 70px rgba(37,211,102,0.6); }
+.btn-wa-big:hover::before { opacity: 1; }
+.wa-icon { font-size: 26px; }
+.final-note {
+  margin-top: 20px;
+  font-size: 13px; color: var(--muted);
+}
+.final-note a { color: var(--cyan); text-decoration: none; }
+
+/* Ring animation around big button */
+.btn-wa-big-wrap {
+  display: inline-block; position: relative; margin-bottom: 24px;
+}
+.btn-ring {
+  position: absolute; inset: -8px;
+  border-radius: 50px;
+  border: 2px solid rgba(37,211,102,0.3);
+  animation: ringPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+.btn-ring:nth-child(2) { inset: -18px; animation-delay: 0.4s; }
+.btn-ring:nth-child(3) { inset: -28px; animation-delay: 0.8s; }
+@keyframes ringPulse {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.12); }
+}
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer {
+  background: #030508;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 24px calc(32px + var(--sb));
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px; font-weight: 800; margin-bottom: 8px;
+}
+.footer-logo span { color: var(--cyan); }
+.footer-logo em { color: var(--magenta); font-style: normal; }
+footer p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ═══════════════════════════════════
+   STICKY WA BUTTON
+═══════════════════════════════════ */
+.sticky-wa {
+  position: fixed; bottom: calc(24px + var(--sb)); right: 20px;
+  z-index: 90;
+  width: 58px; height: 58px;
+  background: var(--wa);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 30px rgba(37,211,102,0.5);
+  text-decoration: none;
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: waPulse 3s ease-in-out infinite;
+}
+.sticky-wa:hover { transform: scale(1.1); box-shadow: 0 6px 40px rgba(37,211,102,0.7); }
+@keyframes waPulse {
+  0%,100% { box-shadow: 0 4px 30px rgba(37,211,102,0.5); }
+  50%      { box-shadow: 0 4px 50px rgba(37,211,102,0.8), 0 0 0 12px rgba(37,211,102,0.1); }
+}
+
+/* ═══════════════════════════════════
+   SCROLL ANIMATIONS (JS sets these)
+═══════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(40px); }
+.reveal-left  { opacity: 0; transform: translateX(-40px); }
+.reveal-right { opacity: 0; transform: translateX(40px); }
+.reveal-scale { opacity: 0; transform: scale(0.85); }
+
+/* ═══════════════════════════════════
+   UTILITIES
+═══════════════════════════════════ */
+.text-center { text-align: center; }
+.mt-auto { margin-top: auto; }
+.cyan   { color: var(--cyan); }
+.gold   { color: var(--gold); }
+.mag    { color: var(--magenta); }
+.green  { color: #4ddb8a; }
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media (max-width: 640px) {
+  .stats-inner { grid-template-columns: repeat(2,1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .nav-logo { font-size: 13px; }
+  .access-card { padding: 36px 24px; }
+  .final-h2 { letter-spacing: -1px; }
+}
+@media (max-width: 380px) {
+  .hero-h1 { letter-spacing: -1px; }
+  .btn-primary { padding: 14px 24px; font-size: 14px; }
+}
+
+/* ═══════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal, .reveal-left, .reveal-right, .reveal-scale {
+    opacity: 1 !important; transform: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor glow -->
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<!-- Sticky WA -->
+<a href="https://wa.me/59169717743?text=Hola+%F0%9F%91%8B+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD%0A%0AMi+dispositivo+es%3A+Smart+TV+%2F+Fire+Stick+%2F+Celular+%2F+Otro"
+   class="sticky-wa" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav" role="navigation" aria-label="Principal">
+  <div class="nav-logo">TU LATINO <span>TV</span> <em>MAX</em></div>
+  <a href="https://wa.me/59169717743?text=Hola+%F0%9F%91%8B+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD%0A%0AMi+dispositivo+es%3A+Smart+TV+%2F+Fire+Stick+%2F+Celular+%2F+Otro"
+     class="nav-cta" target="_blank" rel="noopener">
+    <span>💬</span> Prueba Gratis
+  </a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" aria-label="Inicio">
+  <!-- BG -->
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-bg-grad"></div>
+    <div class="hero-lights"></div>
+    <div class="hero-grid"></div>
+    <div id="particles"></div>
+  </div>
+
+  <div class="hero-eyebrow" role="doc-subtitle">
+    ⚡ Temporada 2026
+  </div>
+
+  <h1 class="hero-h1" id="hero-h1">
+    <span class="line1">TU PANTALLA LISTA</span>
+    <span class="line2">PARA LA TEMPORADA</span>
+    <span class="line3">MÁS GRANDE</span>
+  </h1>
+
+  <p class="hero-sub">
+    Fútbol, películas, series y entretenimiento latino ilimitado desde tus dispositivos favoritos. Activación en 3 minutos.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="https://wa.me/59169717743?text=Hola+%F0%9F%91%8B+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD%0A%0AMi+dispositivo+es%3A+Smart+TV+%2F+Fire+Stick+%2F+Celular+%2F+Otro"
+       class="btn-primary" target="_blank" rel="noopener">
+      🔥 ACTIVAR PRUEBA GRATIS
+    </a>
+    <a href="https://wa.me/59169717743?text=Hola+%F0%9F%91%8B+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD%0A%0AMi+dispositivo+es%3A+Smart+TV+%2F+Fire+Stick+%2F+Celular+%2F+Otro"
+       class="btn-wa" target="_blank" rel="noopener">
+      💬 Consultar por WhatsApp
+    </a>
+  </div>
+
+  <div class="hero-pills" role="list">
+    <div class="pill" role="listitem"><span class="pill-icon">⚡</span> Activación rápida</div>
+    <div class="pill" role="listitem"><span class="pill-icon">📺</span> Smart TV compatible</div>
+    <div class="pill" role="listitem"><span class="pill-icon">🌎</span> +12.000 canales</div>
+    <div class="pill" role="listitem"><span class="pill-icon">🎧</span> Soporte 24/7</div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ═══ STATS BAR ═══ -->
+<div class="stats-bar" role="region" aria-label="Estadísticas">
+  <div class="stats-inner">
+    <div class="stat-item reveal-scale">
+      <div class="stat-num gold" data-count="12000">0</div>
+      <div class="stat-label">Canales en vivo</div>
+    </div>
+    <div class="stat-item reveal-scale" style="--delay:.1s">
+      <div class="stat-num" data-count="50000">0</div>
+      <div class="stat-label">Películas y Series</div>
+    </div>
+    <div class="stat-item reveal-scale" style="--delay:.2s">
+      <div class="stat-num mag" data-count="4">0</div>
+      <div class="stat-label">Screens simultáneos</div>
+    </div>
+    <div class="stat-item reveal-scale" style="--delay:.3s">
+      <div class="stat-num wa" data-count="24">0</div>
+      <div class="stat-label">Soporte personalizado</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WORLD CUP SECTION ═══ -->
+<section class="section wc-section" aria-label="Temporada mundialista">
+  <div class="section-inner text-center">
+    <div class="section-eyebrow reveal">Fútbol Internacional 2026</div>
+    <h2 class="section-h2 reveal">
+      Cuando llega el partido,<br>
+      <span class="cyan">tu pantalla tiene</span><br>
+      <span class="gold">que estar lista</span>
+    </h2>
+    <p class="section-sub reveal" style="margin-left:auto;margin-right:auto;text-align:center">
+      Disfruta los partidos más importantes del año con la mejor calidad de imagen y sin interrupciones.
+    </p>
+
+    <div class="wc-trophy reveal-scale" aria-hidden="true" id="trophy">🏆</div>
+
+    <div class="wc-cards">
+      <div class="wc-card reveal">
+        <span class="wc-card-icon">⚽</span>
+        <div class="wc-card-title">Fútbol en Vivo</div>
+        <div class="wc-card-desc">Partidos internacionales, ligas europeas y americanas en HD. Sin cortes.</div>
+      </div>
+      <div class="wc-card reveal" style="transition-delay:.1s">
+        <span class="wc-card-icon">🎬</span>
+        <div class="wc-card-title">Películas HD</div>
+        <div class="wc-card-desc">Estrenos y clásicos del cine latinoamericano e internacional.</div>
+      </div>
+      <div class="wc-card reveal" style="transition-delay:.2s">
+        <span class="wc-card-icon">📺</span>
+        <div class="wc-card-title">Series Ilimitadas</div>
+        <div class="wc-card-desc">Las mejores series latinas y americanas para tus noches en familia.</div>
+      </div>
+      <div class="wc-card reveal" style="transition-delay:.3s">
+        <span class="wc-card-icon">📡</span>
+        <div class="wc-card-title">TV en Vivo</div>
+        <div class="wc-card-desc">Noticias, deportes, entretenimiento e infantil. Siempre conectado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section class="section features-section" aria-label="Características">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Por qué elegirnos</div>
+    <h2 class="section-h2 reveal">Entretenimiento<br><span class="mag">sin límites</span></h2>
+    <p class="section-sub reveal">Una experiencia diseñada para que disfrutes más y te preocupes menos.</p>
+
+    <div class="features-track" role="list">
+      <div class="feat-card" role="listitem">
+        <span class="feat-icon">⚡</span>
+        <div class="feat-title">Activación Express</div>
+        <div class="feat-desc">Tu servicio activo en menos de 3 minutos. Solo escríbenos por WhatsApp y listo.</div>
+      </div>
+      <div class="feat-card" role="listitem">
+        <span class="feat-icon">📱</span>
+        <div class="feat-title">Todos tus Dispositivos</div>
+        <div class="feat-desc">Smart TV, Fire Stick, Android TV, celular y computadora. Una cuenta, todo compatible.</div>
+      </div>
+      <div class="feat-card" role="listitem">
+        <span class="feat-icon">🛡️</span>
+        <div class="feat-title">Conexión Estable</div>
+        <div class="feat-desc">Servidores optimizados para streaming fluido. Mínimo buffering, máxima calidad.</div>
+      </div>
+      <div class="feat-card" role="listitem">
+        <span class="feat-icon">🎧</span>
+        <div class="feat-title">Soporte Humano</div>
+        <div class="feat-desc">Un agente real te asiste directo por WhatsApp. Sin bots, sin demoras, sin vueltas.</div>
+      </div>
+      <div class="feat-card" role="listitem">
+        <span class="feat-icon">🔄</span>
+        <div class="feat-title">Actualización Constante</div>
+        <div class="feat-desc">Contenido nuevo cada semana. Canales, películas y series siempre actualizados.</div>
+      </div>
+      <div class="feat-card" role="listitem">
+        <span class="feat-icon">👨‍👩‍👧‍👦</span>
+        <div class="feat-title">Para Toda la Familia</div>
+        <div class="feat-desc">Contenido infantil, deportes, novelas y cine. Algo para cada miembro de tu hogar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INTERNET SPEED ═══ -->
+<section class="section speed-section" aria-label="Requisitos de conexión">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Optimiza tu experiencia</div>
+    <h2 class="section-h2 reveal">Tu experiencia depende<br><span class="cyan">de tu conexión</span></h2>
+    <p class="section-sub reveal">No es una advertencia — es tu guía para sacar el máximo provecho.</p>
+
+    <div class="speed-grid">
+      <div class="reveal-left">
+        <div class="speedometer" id="speedometer" aria-label="Medidor de velocidad óptima: 20 Mbps">
+          <svg class="speed-svg" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <linearGradient id="speedGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"   stop-color="#00d4ff"/>
+                <stop offset="50%"  stop-color="#e040fb"/>
+                <stop offset="100%" stop-color="#ffd700"/>
+              </linearGradient>
+            </defs>
+            <!-- Background arc -->
+            <path class="speed-arc-bg"
+              d="M 30 150 A 80 80 0 1 1 170 150"
+            />
+            <!-- Filled arc -->
+            <path class="speed-arc-fill" id="speedArc"
+              d="M 30 150 A 80 80 0 1 1 170 150"
+            />
+            <!-- Center numbers -->
+            <text class="speed-num" x="100" y="105" id="speedNum">0</text>
+            <text class="speed-unit" x="100" y="128">Mbps recomendado</text>
+            <!-- Tick marks -->
+            <g opacity="0.3">
+              <line x1="100" y1="26" x2="100" y2="36" stroke="white" stroke-width="2" transform="rotate(-135 100 150)"/>
+              <line x1="100" y1="26" x2="100" y2="32" stroke="white" stroke-width="1.5" transform="rotate(-90 100 150)"/>
+              <line x1="100" y1="26" x2="100" y2="36" stroke="white" stroke-width="2" transform="rotate(-45 100 150)"/>
+              <line x1="100" y1="26" x2="100" y2="36" stroke="white" stroke-width="2" transform="rotate(0 100 150)"/>
+              <line x1="100" y1="26" x2="100" y2="36" stroke="white" stroke-width="2" transform="rotate(45 100 150)"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <ul class="speed-items">
+          <li class="speed-item">
+            <span class="speed-dot dot-green" aria-hidden="true"></span>
+            <div class="speed-text">
+              <strong>10 Mbps mínimo</strong>
+              <span>Streaming SD estable. Funciona para 1 pantalla.</span>
+            </div>
+          </li>
+          <li class="speed-item">
+            <span class="speed-dot dot-cyan" aria-hidden="true"></span>
+            <div class="speed-text">
+              <strong>20 Mbps+ recomendado</strong>
+              <span>Experiencia HD completa. Ideal para TV principal.</span>
+            </div>
+          </li>
+          <li class="speed-item">
+            <span class="speed-dot dot-gold" aria-hidden="true"></span>
+            <div class="speed-text">
+              <strong>Cable Ethernet en Smart TV</strong>
+              <span>Conexión más estable que WiFi para fútbol en vivo.</span>
+            </div>
+          </li>
+          <li class="speed-item">
+            <span class="speed-dot dot-mag" aria-hidden="true"></span>
+            <div class="speed-text">
+              <strong>WiFi 5GHz si usas inalámbrico</strong>
+              <span>Menor interferencia, mejor velocidad constante.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DEVICE INSTALLER ═══ -->
+<section class="section install-section" aria-label="Guía de instalación por dispositivo">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Instalación interactiva</div>
+    <h2 class="section-h2 reveal">Selecciona tu<br><span class="mag">dispositivo</span></h2>
+    <p class="section-sub reveal">Elige abajo y te mostramos los pasos exactos para activar tu servicio.</p>
+
+    <div class="devices-grid" role="group" aria-label="Selección de dispositivo">
+      <button class="device-btn" data-device="firestick" onclick="selectDevice(this,'firestick')" aria-pressed="false">
+        <span class="device-icon">🔥</span>
+        <div class="device-name">Fire Stick</div>
+        <div class="device-sub">Amazon</div>
+      </button>
+      <button class="device-btn" data-device="smarttv" onclick="selectDevice(this,'smarttv')" aria-pressed="false">
+        <span class="device-icon">📺</span>
+        <div class="device-name">Smart TV</div>
+        <div class="device-sub">Samsung / LG / Sony</div>
+      </button>
+      <button class="device-btn" data-device="androidtv" onclick="selectDevice(this,'androidtv')" aria-pressed="false">
+        <span class="device-icon">🤖</span>
+        <div class="device-name">Android TV</div>
+        <div class="device-sub">Box / Chromecast</div>
+      </button>
+      <button class="device-btn" data-device="android" onclick="selectDevice(this,'android')" aria-pressed="false">
+        <span class="device-icon">📱</span>
+        <div class="device-name">Android</div>
+        <div class="device-sub">Celular / Tablet</div>
+      </button>
+      <button class="device-btn" data-device="ios" onclick="selectDevice(this,'ios')" aria-pressed="false">
+        <span class="device-icon">🍎</span>
+        <div class="device-name">iPhone / iPad</div>
+        <div class="device-sub">iOS / Apple TV</div>
+      </button>
+      <button class="device-btn" data-device="pc" onclick="selectDevice(this,'pc')" aria-pressed="false">
+        <span class="device-icon">💻</span>
+        <div class="device-name">PC / Mac</div>
+        <div class="device-sub">Navegador web</div>
+      </button>
+    </div>
+
+    <div id="steps-container"></div>
+  </div>
+</section>
+
+<!-- ═══ ACCESS SECURITY ═══ -->
+<section class="section access-section" aria-label="Seguridad de acceso">
+  <div class="section-inner">
+    <div class="access-card">
+      <span class="shield-icon reveal-scale" aria-hidden="true">🛡️</span>
+      <h3 class="access-h3 reveal">Tus datos, solo para ti</h3>
+      <p class="access-p reveal">
+        Por seguridad, <strong>tus datos de acceso personalizados</strong> se entregan directamente por WhatsApp.
+        No compartimos credenciales en sitios públicos.
+      </p>
+      <div style="display:flex;justify-content:center">
+        <a href="https://wa.me/59169717743?text=Hola+%F0%9F%91%8B+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD%0A%0AMi+dispositivo+es%3A+Smart+TV+%2F+Fire+Stick+%2F+Celular+%2F+Otro"
+           class="btn-wa" target="_blank" rel="noopener" style="font-size:15px;padding:16px 32px">
+          🔐 OBTENER MIS DATOS DE ACCESO
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="final-cta" aria-label="Llamada a la acción final">
+  <div class="final-inner">
+    <h2 class="final-h2 reveal">
+      Todo listo para<br>
+      <em>la pasión</em><br>
+      del fútbol
+    </h2>
+    <p class="final-sub reveal">
+      Activa tu prueba gratis ahora y disfruta la temporada más grande del entretenimiento latino.
+    </p>
+    <div class="btn-wa-big-wrap reveal-scale">
+      <div class="btn-ring" aria-hidden="true"></div>
+      <div class="btn-ring" aria-hidden="true"></div>
+      <div class="btn-ring" aria-hidden="true"></div>
+      <a href="https://wa.me/59169717743?text=Hola+%F0%9F%91%8B+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD%0A%0AMi+dispositivo+es%3A+Smart+TV+%2F+Fire+Stick+%2F+Celular+%2F+Otro"
+         class="btn-wa-big" target="_blank" rel="noopener" aria-label="Activar prueba gratis por WhatsApp">
+        <span class="wa-icon" aria-hidden="true">💬</span>
+        ACTIVAR PRUEBA GRATIS
+      </a>
+    </div>
+    <p class="final-note">
+      Atención directa al <a href="https://wa.me/59169717743" target="_blank" rel="noopener">+591 69717743</a> — Sin contratos, sin pagos adelantados.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">TU LATINO <span>TV</span> <em>MAX</em></div>
+  <p>
+    Entretenimiento latino en una sola pantalla.<br>
+    <span style="opacity:.5">© 2026 Tu Latino TV Max. La calidad puede variar según la velocidad de tu conexión a internet.</span>
+  </p>
+</footer>
+
+<!-- ═══════════════════════════════════
+   SCRIPTS
+═══════════════════════════════════ -->
+<script>
+/* ── Cursor glow ── */
+const glow = document.getElementById('cursor-glow');
+if (window.matchMedia('(pointer:fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top  = e.clientY + 'px';
+  });
+} else {
+  glow.style.display = 'none';
+}
+
+/* ── Particles ── */
+const pCont = document.getElementById('particles');
+const colors = ['#00d4ff','#e040fb','#ffd700','#ffffff'];
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  const size = Math.random() * 4 + 1;
+  p.className = 'particle';
+  p.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    animation-duration:${Math.random()*15+8}s;
+    animation-delay:${Math.random()*10}s;
+    opacity:${Math.random()*0.6+0.2};
+  `;
+  pCont.appendChild(p);
+}
+
+/* ── Nav scroll ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── GSAP ScrollTrigger animations ── */
+gsap.registerPlugin(ScrollTrigger);
+
+/* Hero entrance */
+gsap.from('.hero-eyebrow', { opacity:0, y:30, duration:0.8, delay:0.3 });
+gsap.from('#hero-h1 .line1', { opacity:0, y:60, duration:0.9, delay:0.5 });
+gsap.from('#hero-h1 .line2', { opacity:0, y:60, duration:0.9, delay:0.65 });
+gsap.from('#hero-h1 .line3', { opacity:0, y:60, duration:0.9, delay:0.80 });
+gsap.from('.hero-sub',       { opacity:0, y:40, duration:0.9, delay:1.0 });
+gsap.from('.hero-ctas',      { opacity:0, y:30, duration:0.8, delay:1.15 });
+gsap.from('.hero-pills',     { opacity:0, y:20, duration:0.8, delay:1.3 });
+
+/* Generic reveal classes */
+gsap.utils.toArray('.reveal').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity:0, y:50 },
+    {
+      opacity:1, y:0,
+      duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 88%',
+        once: true,
+      },
+      delay: i * 0.06
+    }
+  );
+});
+
+gsap.utils.toArray('.reveal-left').forEach(el => {
+  gsap.fromTo(el,
+    { opacity:0, x:-60 },
+    { opacity:1, x:0, duration:1, ease:'power3.out',
+      scrollTrigger: { trigger:el, start:'top 85%', once:true } }
+  );
+});
+
+gsap.utils.toArray('.reveal-right').forEach(el => {
+  gsap.fromTo(el,
+    { opacity:0, x:60 },
+    { opacity:1, x:0, duration:1, ease:'power3.out',
+      scrollTrigger: { trigger:el, start:'top 85%', once:true } }
+  );
+});
+
+gsap.utils.toArray('.reveal-scale').forEach((el, i) => {
+  gsap.fromTo(el,
+    { opacity:0, scale:0.75 },
+    {
+      opacity:1, scale:1,
+      duration: 0.8,
+      ease: 'back.out(1.4)',
+      scrollTrigger: { trigger:el, start:'top 88%', once:true },
+      delay: (el.style.getPropertyValue('--delay') || '0s').replace('s','') * 1
+    }
+  );
+});
+
+/* ── Stat counter animation ── */
+document.querySelectorAll('[data-count]').forEach(el => {
+  const target = parseInt(el.dataset.count);
+  ScrollTrigger.create({
+    trigger: el,
+    start: 'top 90%',
+    once: true,
+    onEnter: () => {
+      gsap.to({ val: 0 }, {
+        val: target,
+        duration: 2,
+        ease: 'power2.out',
+        onUpdate: function() {
+          const v = Math.round(this.targets()[0].val);
+          el.textContent = v >= 1000 ? (v/1000).toFixed(v >= 10000 ? 0 : 1) + 'K+' : v + '/7';
+          if (target === 12000) el.textContent = '12K+';
+          if (target === 50000) el.textContent = '50K+';
+          if (target === 4)     el.textContent = '4';
+          if (target === 24)    el.textContent = '24/7';
+        }
+      });
+    }
+  });
+});
+
+/* ── Speedometer animation ── */
+const speedArc = document.getElementById('speedArc');
+const speedNum = document.getElementById('speedNum');
+const arcLength = 283; // approximate circumference of the arc path
+
+ScrollTrigger.create({
+  trigger: '#speedometer',
+  start: 'top 80%',
+  once: true,
+  onEnter: () => {
+    const obj = { val: 0 };
+    gsap.to(obj, {
+      val: 20,
+      duration: 2.2,
+      ease: 'power2.out',
+      onUpdate: () => {
+        const pct = obj.val / 30; // 30 Mbps = full scale
+        speedArc.style.strokeDashoffset = arcLength - (arcLength * pct);
+        speedNum.textContent = Math.round(obj.val);
+      }
+    });
+  }
+});
+
+/* ── Trophy parallax ── */
+gsap.to('#trophy', {
+  y: -50,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '.wc-section',
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true,
+  }
+});
+
+/* ── WC cards stagger on scroll ── */
+gsap.from('.wc-card', {
+  opacity: 0, y: 60, stagger: 0.12,
+  duration: 0.8, ease: 'power3.out',
+  scrollTrigger: {
+    trigger: '.wc-cards',
+    start: 'top 85%',
+    once: true,
+  }
+});
+
+/* ── Features track drag scroll ── */
+let isDown = false, startX, scrollLeft;
+const track = document.querySelector('.features-track');
+track.addEventListener('mousedown', e => {
+  isDown = true;
+  startX = e.pageX - track.offsetLeft;
+  scrollLeft = track.scrollLeft;
+  track.style.cursor = 'grabbing';
+});
+track.addEventListener('mouseup',    () => { isDown = false; track.style.cursor = ''; });
+track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = ''; });
+track.addEventListener('mousemove',  e => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - track.offsetLeft;
+  track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+});
+
+/* ── Device steps data ── */
+const stepsData = {
+  firestick: {
+    icon: '🔥', label: 'Fire Stick',
+    steps: [
+      { text: 'Desde tu Fire Stick ve a <strong>Configuración → Dispositivo → Opciones para desarrolladores</strong>' },
+      { text: 'Activa <strong>Aplicaciones de fuentes desconocidas</strong>' },
+      { text: 'Busca e instala la app <strong>Downloader</strong> desde la Amazon Store' },
+      { text: 'Abre Downloader, ingresa el código que te enviamos por WhatsApp' },
+      { text: 'Instala la aplicación y <strong>solicita tus datos de acceso por WhatsApp</strong>' },
+    ]
+  },
+  smarttv: {
+    icon: '📺', label: 'Smart TV',
+    steps: [
+      { text: 'Desde la <strong>Samsung/LG/Sony App Store</strong>, busca una de estas apps: <strong>IPTV Smarters</strong>, <strong>Xtream Player</strong> o <strong>TiviMate</strong>' },
+      { text: 'Descarga e instala la aplicación elegida' },
+      { text: 'Selecciona la opción <strong>Agregar lista / Agregar servidor Xtream</strong>' },
+      { text: 'Solicita tus datos de acceso (usuario, contraseña, URL) por <strong>WhatsApp</strong>' },
+      { text: 'Ingresa los datos recibidos y disfruta el contenido' },
+    ]
+  },
+  androidtv: {
+    icon: '🤖', label: 'Android TV / Box',
+    steps: [
+      { text: 'Descarga <strong>IPTV Smarters Pro</strong> o <strong>TiviMate</strong> desde Google Play Store' },
+      { text: 'Abre la app y selecciona <strong>Agregar usuario / Xtream Codes</strong>' },
+      { text: 'Solicita tus datos de acceso por <strong>WhatsApp</strong>' },
+      { text: 'Completa los campos con la URL del servidor, usuario y contraseña' },
+      { text: 'Espera que carguen las listas y ya puedes disfrutar' },
+    ]
+  },
+  android: {
+    icon: '📱', label: 'Android Celular',
+    steps: [
+      { text: 'Descarga <strong>IPTV Smarters</strong> desde Google Play Store (búscala como "IPTV Smarters Pro")' },
+      { text: 'Selecciona <strong>Iniciar sesión con Xtream Codes API</strong>' },
+      { text: 'Escríbenos por <strong>WhatsApp</strong> para recibir tus datos personalizados' },
+      { text: 'Ingresa la URL, usuario y contraseña que te enviamos' },
+      { text: '¡Listo! Disfruta fútbol, películas y series desde tu celular' },
+    ]
+  },
+  ios: {
+    icon: '🍎', label: 'iPhone / iPad / Apple TV',
+    steps: [
+      { text: 'Busca en el <strong>App Store</strong>: <strong>IPTV Smarters Pro</strong> o <strong>GSE Smart IPTV</strong>' },
+      { text: 'Instala y abre la aplicación elegida' },
+      { text: 'Selecciona <strong>Agregar lista por Xtream API</strong>' },
+      { text: 'Contáctanos por <strong>WhatsApp</strong> para recibir tu usuario y contraseña' },
+      { text: 'Ingresa los datos y accede a todo el contenido latino' },
+    ]
+  },
+  pc: {
+    icon: '💻', label: 'PC / Mac',
+    steps: [
+      { text: 'Descarga <strong>VLC Media Player</strong> (gratuito) o usa <strong>Kodi</strong>' },
+      { text: 'En VLC: ve a <strong>Medio → Abrir URL de red</strong>' },
+      { text: 'Solicita por <strong>WhatsApp</strong> el enlace de tu lista personalizada' },
+      { text: 'Pega el enlace recibido y haz clic en Reproducir' },
+      { text: 'Navega los canales desde la lista de reproducción' },
+    ]
+  }
+};
+
+function selectDevice(btn, device) {
+  document.querySelectorAll('.device-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-pressed', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-pressed', 'true');
+
+  const d = stepsData[device];
+  const stepsHtml = d.steps.map((s, i) => `
+    <div class="step-row">
+      <div class="step-num" aria-hidden="true">${i+1}</div>
+      <div class="step-txt">${s.text}</div>
+    </div>
+  `).join('');
+
+  const container = document.getElementById('steps-container');
+  container.innerHTML = `
+    <div class="steps-panel visible" role="region" aria-label="Pasos para ${d.label}">
+      <div class="steps-title">${d.icon} Instalación en ${d.label}</div>
+      ${stepsHtml}
+      <a href="https://wa.me/59169717743?text=Hola+%F0%9F%91%8B+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD%0A%0AMi+dispositivo+es%3A+${encodeURIComponent(d.label)}"
+         class="steps-wa-hint" target="_blank" rel="noopener" style="text-decoration:none">
+        💬 <span>Solicitar mis datos de acceso para <strong>${d.label}</strong> por WhatsApp</span>
+      </a>
+    </div>
+  `;
+  container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>
