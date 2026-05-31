@@ -85,7 +85,7 @@ a{text-decoration:none;color:inherit}
 .htag{display:inline-flex;align-items:center;gap:8px;background:rgba(234,179,8,.1);border:1px solid rgba(234,179,8,.3);border-radius:100px;padding:5px 16px;font-size:11px;font-weight:700;color:var(--g);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
 .htag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--g);animation:bk 1.5s ease infinite}
 @keyframes bk{0%,100%{opacity:1}50%{opacity:.1}}
-h1.hh{font-family:'Syne',sans-serif;font-size:clamp(44px,9vw,108px);font-weight:800;line-height:.9;letter-spacing:-3px;text-transform:uppercase;margin-bottom:22px}
+h1.hh{font-family:'Syne',sans-serif;font-size:clamp(36px,8.5vw,108px);font-weight:800;line-height:.95;letter-spacing:-2px;text-transform:uppercase;margin-bottom:22px}
 h1 .ln{display:block;overflow:hidden}
 h1 .lni{display:inline-block}
 h1 .c1{color:var(--fg)}
@@ -366,7 +366,8 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
 @keyframes swab{0%,100%{box-shadow:0 4px 24px rgba(37,211,102,.55)}50%{box-shadow:0 4px 42px rgba(37,211,102,.8),0 0 0 14px rgba(37,211,102,.08)}}
 
 /* ═══════════════ RESPONSIVE ═══════════════ */
-@media(max-width:640px){h1.hh{letter-spacing:-2px}.gpl{gap:16px}}
+@media(max-width:640px){h1.hh{font-size:clamp(30px,10.5vw,52px);letter-spacing:-1px;line-height:1.0}.gpl{gap:16px}}
+@media(max-width:400px){h1.hh{font-size:clamp(28px,10vw,44px);letter-spacing:-.5px}}
 @media(max-width:400px){.bp,.bwa{padding:13px 20px;font-size:13px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
@@ -455,10 +456,12 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
     <div class="video-wrap">
       <div class="video-label">Tu Latino TV Max</div>
       <video
+        autoplay
+        muted
+        loop
         controls
-        preload="metadata"
+        preload="auto"
         playsinline
-        poster=""
         style="max-height:560px;object-fit:cover"
       >
         <source src="hero-bg.mp4" type="video/mp4">
