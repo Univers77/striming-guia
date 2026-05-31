@@ -3,770 +3,702 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-<meta name="theme-color" content="#03050e">
-<title>Tu Latino TV Max — Guía de Instalación · Fútbol, Películas y Series</title>
-<meta name="description" content="Instala Tu Latino TV Max en Smart TV, Fire Stick, Android, iPhone o PC. Guía visual paso a paso con links directos. Prueba gratis por WhatsApp.">
+<meta name="theme-color" content="#03060f">
+<title>Tu Latino TV Max — Fútbol, Películas y Series en Vivo</title>
+<meta name="description" content="Instala Tu Latino TV Max en Smart TV, Fire Stick, Android, iPhone o PC. Guía visual con links directos. Fútbol HD, +50K películas, +12K canales. Prueba gratis.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
-/* ═══════════════════════════════════
-   TOKENS
-═══════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   DESIGN SYSTEM
+═══════════════════════════════════════════════ */
 :root{
-  --bg:#03050e;--bg2:#060a18;--bg3:#0a0f22;
-  --card:rgba(255,255,255,.04);--card-h:rgba(255,255,255,.07);
-  --border:rgba(255,255,255,.08);--border-c:rgba(0,220,255,.2);
-  --cyan:#00dcff;--mag:#d946ef;--gold:#f5c842;--green:#22d47a;--wa:#25d366;
-  --white:#edf0ff;--muted:rgba(237,240,255,.5);
-  --r:16px;--r2:12px;--r3:8px;
-  --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
+  --ink:    #03060f;
+  --ink2:   #060c1c;
+  --ink3:   #0a1228;
+  --c:      #00e0ff;  /* cyan */
+  --m:      #c026d3;  /* magenta */
+  --g:      #eab308;  /* gold */
+  --gr:     #22c55e;  /* green */
+  --wa:     #25d366;
+  --fg:     #e2e8ff;
+  --fg2:    rgba(226,232,255,.55);
+  --fg3:    rgba(226,232,255,.3);
+  --bdr:    rgba(255,255,255,.07);
+  --bdr2:   rgba(0,224,255,.2);
+  --r:      14px;
+  --sb:     env(safe-area-inset-bottom,0px);
+  --st:     env(safe-area-inset-top,0px);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
 body{
   font-family:'Inter',-apple-system,sans-serif;
-  background:var(--bg);color:var(--white);
+  background:var(--ink);color:var(--fg);
   overflow-x:hidden;-webkit-font-smoothing:antialiased;
   padding-top:var(--st);
 }
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
 
-/* subtle noise */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ═══════════════════════════════════
+/* ═══════════════════════════════════════════════
    NAV
-═══════════════════════════════════ */
+═══════════════════════════════════════════════ */
 .nav{
-  position:fixed;top:0;left:0;right:0;z-index:400;height:60px;
-  padding:0 clamp(16px,4vw,48px);
+  position:fixed;inset:0 0 auto;z-index:900;
+  height:58px;padding:0 clamp(16px,4vw,52px);
   display:flex;align-items:center;justify-content:space-between;
-  transition:background .4s,box-shadow .4s;
+  transition:background .35s,box-shadow .35s;
 }
-.nav.solid{background:rgba(3,5,14,.96);backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--border)}
-.logo{
-  font-family:'Syne',sans-serif;font-size:clamp(13px,1.8vw,17px);
-  font-weight:800;letter-spacing:-.3px;line-height:1;
-}
-.logo b{color:var(--cyan)}.logo em{color:var(--mag);font-style:normal}
-.btn-nav{
+.nav.s{background:rgba(3,6,15,.97);backdrop-filter:blur(24px);box-shadow:0 1px 0 var(--bdr)}
+.logo{font-family:'Syne',sans-serif;font-size:clamp(13px,1.8vw,16px);font-weight:800;letter-spacing:-.2px}
+.logo b{color:var(--c)}.logo em{color:var(--m);font-style:normal}
+.nav-wa{
   display:inline-flex;align-items:center;gap:7px;
-  background:var(--wa);color:#fff;border:none;cursor:pointer;text-decoration:none;
-  padding:9px 20px;border-radius:50px;
-  font-size:13px;font-weight:700;white-space:nowrap;
-  transition:transform .2s,box-shadow .2s;
+  background:var(--wa);color:#fff;
+  padding:8px 18px;border-radius:100px;
+  font-size:13px;font-weight:700;
+  transition:transform .18s,box-shadow .18s;
 }
-.btn-nav:hover{transform:scale(1.05);box-shadow:0 0 22px rgba(37,211,102,.45)}
+.nav-wa:hover{transform:scale(1.05);box-shadow:0 0 22px rgba(37,211,102,.5)}
 
-/* ═══════════════════════════════════
+/* ═══════════════════════════════════════════════
    HERO
-═══════════════════════════════════ */
+═══════════════════════════════════════════════ */
 .hero{
-  position:relative;width:100%;
-  height:100svh;min-height:600px;
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;overflow:hidden;
+  position:relative;
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  padding:80px clamp(16px,6vw,80px) 0;
 }
-/* BG */
-.hbg{position:absolute;inset:0;z-index:0}
-.hbg-glow{
+
+/* layered BG */
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hb1{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 90% 60% at 50% 105%,rgba(0,220,255,.18) 0%,transparent 55%),
-    radial-gradient(ellipse 60% 50% at 10% 40%,rgba(217,70,239,.12) 0%,transparent 55%),
-    radial-gradient(ellipse 50% 40% at 90% 30%,rgba(245,200,66,.08) 0%,transparent 50%),
-    linear-gradient(180deg,#03050e 0%,#060a18 60%,#03050e 100%);
+    radial-gradient(ellipse 100% 55% at 50% 108%,rgba(0,224,255,.22) 0%,transparent 52%),
+    radial-gradient(ellipse 60% 45% at 8%  55%,rgba(192,38,211,.14) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 92% 30%,rgba(234,179,8,.09)  0%,transparent 50%),
+    linear-gradient(180deg,#03060f 0%,#060c1c 70%,#03060f 100%);
 }
 /* grid floor */
-.hbg-grid{
-  position:absolute;bottom:0;left:0;right:0;height:55%;
-  background-image:
-    linear-gradient(rgba(0,220,255,.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,220,255,.08) 1px,transparent 1px);
-  background-size:55px 55px;
-  transform:perspective(650px) rotateX(55deg);
-  transform-origin:bottom;
-  mask-image:linear-gradient(0deg,black 0%,rgba(0,0,0,.6) 35%,transparent 70%);
-  -webkit-mask-image:linear-gradient(0deg,black 0%,rgba(0,0,0,.6) 35%,transparent 70%);
+.hb2{
+  position:absolute;bottom:0;left:0;right:0;height:52%;
+  background-image:linear-gradient(rgba(0,224,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(0,224,255,.09) 1px,transparent 1px);
+  background-size:52px 52px;
+  transform:perspective(600px) rotateX(56deg);
+  transform-origin:bottom center;
+  mask-image:linear-gradient(0deg,black 0%,rgba(0,0,0,.55) 32%,transparent 68%);
+  -webkit-mask-image:linear-gradient(0deg,black 0%,rgba(0,0,0,.55) 32%,transparent 68%);
 }
 /* animated beams */
-.hbg-beams{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.beam{position:absolute;top:0;width:1px;height:100%;background:linear-gradient(180deg,var(--bc,rgba(0,220,255,.15)) 0%,transparent 85%);animation:beamA var(--bd,6s) ease-in-out infinite alternate}
-.b1{left:12%;--bd:7s}.b2{left:30%;--bc:rgba(217,70,239,.12);--bd:9s;animation-delay:1s}.b3{left:50%;--bd:8s;animation-delay:.5s}.b4{left:70%;--bc:rgba(245,200,66,.1);--bd:10s;animation-delay:2s}.b5{left:88%;--bc:rgba(217,70,239,.1);--bd:7.5s;animation-delay:1.5s}
-@keyframes beamA{0%{opacity:.3;transform:scaleY(.85)}100%{opacity:1;transform:scaleY(1)}}
-/* particles */
+.hb3{position:absolute;inset:0;overflow:hidden}
+.bm{position:absolute;top:0;width:1px;height:100%;background:linear-gradient(180deg,var(--bc,rgba(0,224,255,.16)) 0%,transparent 88%);animation:bmA var(--bd,7s) ease-in-out infinite alternate}
+.bm:nth-child(1){left:10%}.bm:nth-child(2){left:28%;--bc:rgba(192,38,211,.13);--bd:9s;animation-delay:1s}.bm:nth-child(3){left:50%;--bd:8s;animation-delay:.5s}.bm:nth-child(4){left:72%;--bc:rgba(234,179,8,.1);--bd:10s;animation-delay:1.8s}.bm:nth-child(5){left:90%;--bc:rgba(192,38,211,.12);--bd:7.5s;animation-delay:2.2s}
+@keyframes bmA{0%{opacity:.25;transform:scaleY(.8)}100%{opacity:1;transform:scaleY(1)}}
 #pc{position:absolute;inset:0;z-index:1;pointer-events:none}
-/* vignette */
-.hvg{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(0deg,#03050e 0%,rgba(3,5,14,.85) 12%,rgba(3,5,14,.3) 35%,transparent 58%),linear-gradient(180deg,rgba(3,5,14,.5) 0%,transparent 12%)}
+/* cinematic vignette */
+.hbv{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(0deg,var(--ink) 0%,rgba(3,6,15,.88) 14%,rgba(3,6,15,.3) 38%,transparent 60%),
+             linear-gradient(180deg,rgba(3,6,15,.55) 0%,transparent 14%);
+}
 
-/* Hero content */
-.hc{position:relative;z-index:10;padding:0 clamp(18px,5vw,80px);max-width:900px;width:100%}
-.htag{
+/* hero text */
+.hero-inner{position:relative;z-index:10;width:100%;max-width:1000px}
+.hero-tag{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);
-  border-radius:50px;padding:5px 16px;
-  font-size:11px;font-weight:700;color:var(--gold);
-  letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;
+  background:rgba(234,179,8,.1);border:1px solid rgba(234,179,8,.3);
+  border-radius:100px;padding:5px 16px;
+  font-size:11px;font-weight:700;color:var(--g);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:20px;
 }
-.htag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.5s ease infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--g);animation:bk 1.5s ease infinite}
+@keyframes bk{0%,100%{opacity:1}50%{opacity:.1}}
 
-.hero-h1{
+h1.hero-h1{
   font-family:'Syne',sans-serif;
-  font-size:clamp(40px,8vw,92px);
-  font-weight:800;line-height:.93;
-  letter-spacing:-2.5px;margin-bottom:20px;
+  font-size:clamp(44px,9vw,110px);
+  font-weight:800;line-height:.9;
+  letter-spacing:-3px;
   text-transform:uppercase;
+  margin-bottom:22px;
 }
-.hero-h1 .ln{display:block;overflow:hidden}
-.hero-h1 .lni{display:inline-block}
-/* gradient lines */
-.hero-h1 .c1{color:var(--white)}
-.hero-h1 .c2{background:linear-gradient(100deg,var(--mag),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200%;animation:gS 6s ease infinite}
-.hero-h1 .c3{color:var(--gold)}
-@keyframes gS{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
+h1 .ln{display:block;overflow:hidden}
+h1 .lni{display:inline-block}
+h1 .c1{color:var(--fg)}
+h1 .c2{
+  background:linear-gradient(110deg,var(--m),var(--c) 55%,var(--g));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;background-size:200%;
+  animation:gs 7s ease infinite;
+}
+@keyframes gs{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
+h1 .c3{color:var(--fg)}
 
 .hero-sub{
-  font-size:clamp(14px,1.5vw,18px);
-  color:rgba(237,240,255,.65);
-  line-height:1.65;max-width:560px;
-  margin:0 auto 30px;
+  font-size:clamp(15px,1.8vw,20px);
+  color:var(--fg2);line-height:1.6;
+  max-width:600px;margin:0 auto 32px;
 }
-.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:28px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:30px}
 
-.btn-p{
+.bp{
   display:inline-flex;align-items:center;gap:9px;
-  background:linear-gradient(135deg,var(--cyan),var(--mag));
-  color:#03050e;padding:15px 32px;border-radius:50px;
-  font-size:14px;font-weight:800;text-decoration:none;border:none;cursor:pointer;
-  box-shadow:0 0 40px rgba(0,220,255,.3);
-  transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden;white-space:nowrap;
+  background:linear-gradient(135deg,var(--c),var(--m));
+  color:var(--ink);padding:16px 34px;border-radius:100px;
+  font-size:15px;font-weight:800;border:none;cursor:pointer;
+  box-shadow:0 0 40px rgba(0,224,255,.3);
+  transition:transform .22s,box-shadow .22s;
+  position:relative;overflow:hidden;
 }
-.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);opacity:0;transition:opacity .3s}
-.btn-p:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 8px 50px rgba(0,220,255,.5)}.btn-p:hover::after{opacity:1}
-
-.btn-wa-o{
+.bp::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);opacity:0;transition:opacity .3s}
+.bp:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 8px 50px rgba(0,224,255,.5)}.bp:hover::after{opacity:1}
+.bwa{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(37,211,102,.1);border:1.5px solid rgba(37,211,102,.35);
-  color:#3ddb82;padding:14px 26px;border-radius:50px;
-  font-size:14px;font-weight:700;text-decoration:none;
-  transition:background .25s,transform .2s;white-space:nowrap;
+  color:#34d96f;padding:15px 28px;border-radius:100px;
+  font-size:15px;font-weight:700;
+  transition:background .22s,transform .2s;
 }
-.btn-wa-o:hover{background:rgba(37,211,102,.2);transform:translateY(-2px)}
+.bwa:hover{background:rgba(37,211,102,.2);transform:translateY(-2px)}
 
-/* badges */
-.hbadges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.hb{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:12px;font-weight:600;color:rgba(237,240,255,.55);
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);
-  border-radius:50px;padding:6px 14px;
-}
-.hb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+/* hero badges */
+.hero-bgs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.hbg{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--fg3);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:6px 14px}
+.hdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
-/* ═══════════════════════════════════
-   STATS BAR
-═══════════════════════════════════ */
-.stats-bar{
-  position:relative;z-index:2;
-  background:rgba(0,220,255,.04);
-  border-top:1px solid rgba(0,220,255,.1);
-  border-bottom:1px solid rgba(0,220,255,.1);
-}
-.stats-inner{
-  max-width:1100px;margin:0 auto;
+/* ─── STATS inside hero bottom ─── */
+.hero-stats{
   display:grid;grid-template-columns:repeat(4,1fr);
+  width:100%;max-width:700px;
+  margin:0 auto;
+  background:rgba(0,224,255,.04);
+  border:1px solid rgba(0,224,255,.12);
+  border-radius:var(--r) var(--r) 0 0;
+  overflow:hidden;
+  position:relative;z-index:10;
+  margin-top:36px;
 }
-@media(max-width:640px){.stats-inner{grid-template-columns:repeat(2,1fr)}}
-.stat{
-  padding:20px 16px;text-align:center;
-  border-right:1px solid rgba(0,220,255,.08);
-  transition:background .25s;
-}
-.stat:last-child{border-right:none}
-.stat:hover{background:rgba(0,220,255,.04)}
-.stat-n{
-  font-family:'Syne',sans-serif;
-  font-size:clamp(22px,3vw,34px);font-weight:800;line-height:1;
-  margin-bottom:4px;
-}
-.sn-c{color:var(--cyan)}.sn-g{color:var(--gold)}.sn-m{color:var(--mag)}.sn-gr{color:var(--green)}
-.stat-l{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+@media(max-width:560px){.hero-stats{grid-template-columns:repeat(2,1fr)}}
+.hstat{padding:18px 12px;text-align:center;border-right:1px solid rgba(0,224,255,.08)}
+.hstat:last-child{border-right:none}
+.hstat:nth-child(2n){border-right:1px solid rgba(0,224,255,.08)}
+@media(max-width:560px){.hstat:nth-child(2n){border-right:none}}
+.hstat-v{font-family:'Syne',sans-serif;font-size:clamp(20px,3vw,30px);font-weight:800;line-height:1;margin-bottom:3px}
+.hstat-l{font-size:10px;font-weight:600;color:var(--fg3);text-transform:uppercase;letter-spacing:.8px}
+.sv-c{color:var(--c)}.sv-g{color:var(--g)}.sv-m{color:var(--m)}.sv-gr{color:var(--gr)}
 
-/* ═══════════════════════════════════
-   GUIDE — MAIN FUNCTION
-═══════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════ */
+.ticker{height:40px;overflow:hidden;background:rgba(0,224,255,.04);border-top:1px solid rgba(0,224,255,.1);border-bottom:1px solid rgba(0,224,255,.1)}
+.tk{display:flex;animation:tkRun 28s linear infinite;height:100%;white-space:nowrap}
+.tki{display:inline-flex;align-items:center;gap:10px;padding:0 22px;height:100%;font-size:11px;font-weight:700;color:rgba(0,224,255,.65);letter-spacing:.5px;border-right:1px solid rgba(0,224,255,.08);flex-shrink:0}
+.tki em{color:var(--fg);font-style:normal;font-weight:800;font-size:13px}
+.tki .td{width:4px;height:4px;border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);animation:bk 2s ease infinite}
+@keyframes tkRun{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════════════
+   GUIDE SECTION
+═══════════════════════════════════════════════ */
 .guide-sec{
-  background:var(--bg);
-  padding:clamp(52px,7vh,88px) clamp(16px,5vw,56px);
-  position:relative;
+  background:var(--ink2);
+  padding:clamp(56px,8vh,96px) clamp(16px,5vw,60px);
+  position:relative;overflow:hidden;
 }
 .guide-sec::before{
   content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 50% 30% at 0% 60%,rgba(0,220,255,.04),transparent 55%),
-    radial-gradient(ellipse 40% 30% at 100% 40%,rgba(217,70,239,.04),transparent 55%);
+  background:radial-gradient(ellipse 50% 30% at 0% 60%,rgba(0,224,255,.04),transparent 55%),
+    radial-gradient(ellipse 40% 30% at 100% 35%,rgba(192,38,211,.04),transparent 55%);
 }
-.gw{max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.gw{max-width:1140px;margin:0 auto;position:relative;z-index:2}
 
-/* section header */
-.sh{margin-bottom:28px;text-align:center}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:11px;font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;color:var(--cyan);margin-bottom:12px;
-}
-.eyebrow::before{content:'';width:20px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan));border-radius:2px}
-.sec-h2{
-  font-family:'Syne',sans-serif;
-  font-size:clamp(24px,4.5vw,48px);font-weight:800;
-  line-height:1.0;letter-spacing:-1.2px;margin-bottom:8px;
-}
-.sec-sub{font-size:14px;color:var(--muted);line-height:1.6;max-width:480px;margin:0 auto}
+/* section head */
+.sh{margin-bottom:28px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--c);margin-bottom:12px}
+.eyebrow::before{content:'';width:20px;height:2px;background:linear-gradient(90deg,transparent,var(--c));border-radius:2px}
+.sh2{font-family:'Syne',sans-serif;font-size:clamp(26px,4.5vw,50px);font-weight:800;line-height:1.0;letter-spacing:-1.2px;margin-bottom:8px}
+.ssub{font-size:14px;color:var(--fg2);line-height:1.6;max-width:480px}
 
-/* detect notice */
-.detect-notice{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  background:rgba(0,220,255,.06);border:1px solid rgba(0,220,255,.18);
-  border-radius:var(--r2);padding:11px 20px;
-  margin-bottom:22px;font-size:13px;color:var(--cyan);font-weight:600;
+/* detect strip */
+.dstrip{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(0,224,255,.06);border:1px solid rgba(0,224,255,.18);
+  border-radius:var(--r);padding:11px 18px;margin-bottom:24px;
+  font-size:13px;font-weight:600;color:var(--c);
 }
-.detect-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:blink 1.4s ease infinite;flex-shrink:0}
+.ddot{width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c);animation:bk 1.4s ease infinite;flex-shrink:0}
 
-/* ── DEVICE GRID — always 6 ── */
-.dev-grid{
-  display:grid;grid-template-columns:repeat(6,1fr);gap:10px;
-  margin-bottom:28px;
-}
-@media(max-width:860px){.dev-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:480px){.dev-grid{grid-template-columns:repeat(2,1fr)}}
+/* ─── DEVICE GRID — always 6 ─── */
+.dg{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:28px}
+@media(max-width:860px){.dg{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:460px){.dg{grid-template-columns:repeat(2,1fr)}}
 
 .dc{
-  position:relative;background:var(--card);
-  border:1.5px solid var(--border);border-radius:var(--r);
-  padding:18px 10px 14px;text-align:center;cursor:pointer;
-  transition:all .22s;display:flex;flex-direction:column;align-items:center;gap:7px;
+  position:relative;background:rgba(255,255,255,.04);
+  border:1.5px solid var(--bdr);border-radius:var(--r);
+  padding:18px 8px 14px;text-align:center;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  transition:all .22s;
 }
-.dc::after{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,var(--cyan),var(--mag));border-radius:0 0 4px 4px;opacity:0;transition:opacity .22s}
-.dc:hover{border-color:var(--border-c);background:rgba(0,220,255,.05);transform:translateY(-4px)}
-.dc.on{border-color:var(--cyan);background:rgba(0,220,255,.08);transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,220,255,.12)}
+.dc::after{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,var(--c),var(--m));border-radius:0 0 3px 3px;opacity:0;transition:opacity .22s}
+.dc:hover{border-color:var(--bdr2);background:rgba(0,224,255,.05);transform:translateY(-4px)}
+.dc.on{border-color:var(--c);background:rgba(0,224,255,.08);transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,224,255,.15)}
 .dc.on::after{opacity:1}
-/* detected badge */
-.fyu{
-  position:absolute;top:-10px;left:50%;transform:translateX(-50%);
-  background:linear-gradient(90deg,var(--cyan),var(--mag));
-  color:#03050e;font-size:8px;font-weight:800;letter-spacing:1px;
-  text-transform:uppercase;padding:2px 9px;border-radius:50px;
-  display:none;white-space:nowrap;
-}
+.fyu{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--c),var(--m));color:var(--ink);font-size:8px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:2px 9px;border-radius:100px;display:none;white-space:nowrap}
 .dc.detected .fyu{display:block}
-.dc-icon{font-size:clamp(26px,3.5vw,34px);filter:drop-shadow(0 0 10px rgba(0,220,255,.3))}
-.dc.on .dc-icon{filter:drop-shadow(0 0 18px rgba(0,220,255,.65))}
-.dc-name{font-size:clamp(11px,1.2vw,13px);font-weight:700;color:var(--white);line-height:1.2}
-.dc-sub{font-size:9px;color:var(--muted)}
+.dci{font-size:clamp(26px,3.5vw,34px);filter:drop-shadow(0 0 10px rgba(0,224,255,.3))}
+.dc.on .dci{filter:drop-shadow(0 0 20px rgba(0,224,255,.7))}
+.dcn{font-size:clamp(11px,1.2vw,13px);font-weight:700;color:var(--fg);line-height:1.2}
+.dcs{font-size:9px;color:var(--fg3)}
 
-/* ── GUIDE PANEL ── */
+/* ─── GUIDE PANEL ─── */
 .gp{display:none;animation:gpIn .35s ease}
 .gp.on{display:block}
 @keyframes gpIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-.gp-layout{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:clamp(20px,3vw,48px);
+.gpl{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:clamp(20px,3vw,52px);
+  align-items:start;
 }
-@media(max-width:760px){.gp-layout{grid-template-columns:1fr}}
+@media(max-width:800px){.gpl{grid-template-columns:1fr}}
 
-/* Visual side */
-.gp-visual{
-  background:var(--bg2);border:1px solid var(--border);
+/* visual card */
+.gvis{
+  background:var(--ink);
+  border:1px solid var(--bdr);
   border-radius:var(--r);overflow:hidden;
-  display:flex;flex-direction:column;
+  position:sticky;top:72px;
 }
-.gp-vis-top{
-  flex:1;display:flex;align-items:center;justify-content:center;
-  aspect-ratio:4/3;position:relative;overflow:hidden;
+.gvis-top{
+  aspect-ratio:4/3;position:relative;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-.gp-vis-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.ring{
-  position:absolute;border-radius:50%;border:1px solid;
-  animation:rPulse 3.5s ease-in-out infinite;
-}
-.r1{width:120px;height:120px;border-color:rgba(0,220,255,.2);animation-delay:0s}
-.r2{width:175px;height:175px;border-color:rgba(0,220,255,.1);animation-delay:.6s}
-.r3{width:230px;height:230px;border-color:rgba(0,220,255,.05);animation-delay:1.2s}
-@keyframes rPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.04);opacity:1}}
-.gp-vis-icon{font-size:clamp(64px,9vw,96px);position:relative;z-index:2;filter:drop-shadow(0 0 36px var(--glow,rgba(0,220,255,.55)))}
-/* Bottom info bar */
-.gp-vis-info{
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  border-top:1px solid var(--border);
-}
-.gvi{padding:12px 10px;text-align:center;border-right:1px solid var(--border)}
-.gvi:last-child{border-right:none}
-.gvi-v{font-size:13px;font-weight:800;margin-bottom:2px}
-.gvi-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
-.gvi-c{color:var(--green)}.gvi-au{color:var(--gold)}.gvi-cy{color:var(--cyan)}
+.gvis-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.gring{position:absolute;border-radius:50%;border:1px solid;animation:rp 3.5s ease-in-out infinite}
+.gr1{width:110px;height:110px;border-color:rgba(0,224,255,.25);animation-delay:0s}
+.gr2{width:165px;height:165px;border-color:rgba(0,224,255,.12);animation-delay:.6s}
+.gr3{width:220px;height:220px;border-color:rgba(0,224,255,.06);animation-delay:1.2s}
+@keyframes rp{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.04);opacity:1}}
+.gvis-icon{font-size:clamp(64px,8vw,88px);position:relative;z-index:2;filter:drop-shadow(0 0 40px var(--ggl,rgba(0,224,255,.6)))}
+/* status row */
+.gvis-bot{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bdr)}
+.gvb{padding:10px 8px;text-align:center;border-right:1px solid var(--bdr)}
+.gvb:last-child{border-right:none}
+.gvb-v{font-size:12px;font-weight:800;margin-bottom:1px}
+.gvb-l{font-size:9px;color:var(--fg3);text-transform:uppercase;letter-spacing:.7px}
+.gv-gr{color:var(--gr)}.gv-g{color:var(--g)}.gv-c{color:var(--c)}
 
-/* Steps side */
-.gp-steps{}
-/* App download bar */
-.app-bar{
-  background:rgba(0,220,255,.06);border:1px solid rgba(0,220,255,.15);
-  border-radius:var(--r2);padding:14px 16px;margin-bottom:16px;
+/* steps card */
+.gsteps{
+  background:var(--ink);
+  border:1px solid var(--bdr);
+  border-radius:var(--r);overflow:hidden;
 }
-.app-bar-title{
-  font-size:11px;font-weight:700;color:var(--cyan);
-  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;
+/* download bar */
+.dl-bar{
+  background:rgba(0,224,255,.05);
+  border-bottom:1px solid rgba(0,224,255,.12);
+  padding:16px 20px;
+}
+.dl-label{
   display:flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:700;color:var(--c);
+  text-transform:uppercase;letter-spacing:1.5px;
+  margin-bottom:12px;
 }
-.app-bar-title::before{content:'↓';font-size:14px}
-.app-links{display:flex;flex-wrap:wrap;gap:8px}
-.app-link{
-  display:inline-flex;align-items:center;gap:7px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-  border-radius:var(--r3);padding:8px 14px;
-  font-size:12px;font-weight:700;color:var(--white);
-  text-decoration:none;transition:all .2s;flex:1;min-width:140px;justify-content:center;
+.dl-label::before{content:'↓';font-size:16px;font-weight:900}
+.dl-links{display:flex;flex-wrap:wrap;gap:8px}
+.dl-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:100px;
+  padding:9px 16px;
+  font-size:12px;font-weight:700;color:var(--fg);
+  transition:all .2s;flex:1;min-width:150px;justify-content:center;
 }
-.app-link:hover{background:rgba(0,220,255,.12);border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
-.app-link-icon{font-size:16px}
-/* Copy button */
-.copy-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.25);
-  border-radius:var(--r3);padding:8px 14px;
-  font-size:11px;font-weight:700;color:var(--gold);
-  cursor:pointer;transition:all .2s;white-space:nowrap;
-}
-.copy-btn:hover{background:rgba(245,200,66,.2);border-color:var(--gold)}
-.copy-btn.copied{background:rgba(34,212,122,.15);border-color:var(--green);color:var(--green)}
+.dl-btn:hover{background:rgba(0,224,255,.12);border-color:var(--c);color:var(--c);transform:translateY(-2px)}
+.dl-btn-icon{font-size:15px}
 
 /* tip */
-.tip-box{
+.tip{
   display:flex;gap:10px;align-items:flex-start;
-  background:rgba(245,200,66,.06);border-left:2px solid var(--gold);
-  padding:11px 14px;border-radius:0 var(--r3) var(--r3) 0;
-  margin-bottom:14px;font-size:12px;color:rgba(245,200,66,.85);line-height:1.55;
+  border-left:3px solid var(--g);
+  background:rgba(234,179,8,.06);
+  padding:12px 16px;margin:0 20px 0;
+  font-size:12px;color:rgba(234,179,8,.85);
+  line-height:1.55;
 }
-.ti{font-size:15px;flex-shrink:0;margin-top:1px}
+.tii{font-size:14px;flex-shrink:0;margin-top:1px}
 
-/* Steps list */
-.steps-list{margin-bottom:16px}
+/* steps */
+.steps-wrap{padding:4px 0}
 .step{
-  display:flex;gap:14px;padding:12px 0;
+  display:flex;gap:0;
   border-bottom:1px solid rgba(255,255,255,.05);
+  transition:background .15s;
 }
 .step:last-child{border-bottom:none}
-.step-n{
-  width:30px;height:30px;flex-shrink:0;border-radius:50%;
-  background:linear-gradient(135deg,var(--cyan),var(--mag));
+.step:hover{background:rgba(0,224,255,.03)}
+.step-left{
+  width:52px;flex-shrink:0;
+  padding:16px 0;
+  display:flex;flex-direction:column;
+  align-items:center;gap:0;
+  position:relative;
+}
+/* vertical line connecting steps */
+.step-left::after{
+  content:'';position:absolute;top:46px;bottom:-1px;left:50%;transform:translateX(-50%);
+  width:1px;background:linear-gradient(180deg,rgba(0,224,255,.25),transparent);
+}
+.step:last-child .step-left::after{display:none}
+.step-num{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--c),var(--m));
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:#03050e;margin-top:1px;
-  box-shadow:0 0 12px rgba(0,220,255,.2);
+  font-size:12px;font-weight:800;color:var(--ink);
+  box-shadow:0 0 14px rgba(0,224,255,.3);
+  flex-shrink:0;
 }
-.step-n.done{background:linear-gradient(135deg,var(--green),#18b860)}
-.step-title{font-size:13px;font-weight:700;color:var(--white);margin-bottom:3px}
-.step-desc{font-size:12px;color:var(--muted);line-height:1.55}
-.step-desc strong{color:rgba(237,240,255,.85);font-weight:700}
+.step-num.done{background:linear-gradient(135deg,var(--gr),#16a34a)}
+.step-body{padding:14px 20px 14px 0;flex:1}
+.step-t{font-size:13px;font-weight:700;color:var(--fg);margin-bottom:4px}
+.step-d{font-size:12px;color:var(--fg2);line-height:1.6}
+.step-d strong{color:rgba(226,232,255,.88);font-weight:700}
 
-/* WA CTA inside guide */
-.guide-wa{
+/* guide WA CTA */
+.gwa{
   display:flex;align-items:center;gap:14px;
-  background:rgba(37,211,102,.08);border:1.5px solid rgba(37,211,102,.25);
-  border-radius:var(--r2);padding:16px 18px;text-decoration:none;
-  color:var(--green);transition:background .2s,transform .2s;
+  background:rgba(37,211,102,.07);
+  border-top:1px solid rgba(37,211,102,.2);
+  padding:18px 20px;color:var(--gr);
+  transition:background .2s;
 }
-.guide-wa:hover{background:rgba(37,211,102,.16);transform:translateY(-2px)}
-.gwa-icon{font-size:26px;flex-shrink:0}
-.gwa-text strong{display:block;font-size:14px;font-weight:800;margin-bottom:2px}
-.gwa-text span{font-size:11px;color:rgba(34,212,122,.6)}
+.gwa:hover{background:rgba(37,211,102,.14)}
+.gwa-ic{font-size:28px;flex-shrink:0}
+.gwa-t strong{display:block;font-size:14px;font-weight:800;margin-bottom:2px}
+.gwa-t span{font-size:11px;color:rgba(34,197,94,.55)}
 
-/* ═══════════════════════════════════
-   TICKER
-═══════════════════════════════════ */
-.ticker{
-  height:42px;overflow:hidden;
-  background:rgba(0,220,255,.04);
-  border-top:1px solid rgba(0,220,255,.08);
-  border-bottom:1px solid rgba(0,220,255,.08);
-}
-.tk-track{display:flex;animation:tkRun 25s linear infinite;height:100%;white-space:nowrap}
-.tk-item{
-  display:inline-flex;align-items:center;gap:9px;
-  padding:0 24px;height:100%;flex-shrink:0;
-  font-size:11px;font-weight:700;color:rgba(0,220,255,.65);
-  letter-spacing:.5px;border-right:1px solid rgba(0,220,255,.08);
-}
-.tk-item em{color:var(--white);font-style:normal;font-size:13px;font-weight:800}
-.tk-item .td{width:4px;height:4px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan);animation:blink 2s ease infinite}
-@keyframes tkRun{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* ═══════════════════════════════════════════════
+   CONTENT
+═══════════════════════════════════════════════ */
+.content{background:var(--ink3);padding:clamp(56px,8vh,88px) clamp(16px,5vw,60px);border-top:1px solid var(--bdr)}
+.ci{max-width:1140px;margin:0 auto}
+.shelf{margin-bottom:28px}.shelf:last-child{margin-bottom:0}
+.shdr{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(0,224,255,.08)}
+.stitle{font-family:'Syne',sans-serif;font-size:clamp(12px,1.5vw,15px);font-weight:800;text-transform:uppercase;letter-spacing:.8px}
+.sline{flex:1;height:1px;background:linear-gradient(90deg,rgba(0,224,255,.12),transparent)}
+.sbadge{font-size:10px;font-weight:700;color:var(--c);background:rgba(0,224,255,.08);border:1px solid rgba(0,224,255,.14);padding:3px 10px;border-radius:100px;white-space:nowrap}
 
-/* ═══════════════════════════════════
-   CONTENT SECTION
-═══════════════════════════════════ */
-.content-sec{
-  background:var(--bg2);
-  padding:clamp(52px,7vh,88px) clamp(16px,5vw,56px);
-  border-top:1px solid var(--border);
-}
-.ci{max-width:1100px;margin:0 auto}
-.shelf{margin-bottom:32px}.shelf:last-child{margin-bottom:0}
-.shelf-hdr{
-  display:flex;align-items:center;gap:12px;margin-bottom:12px;
-  padding-bottom:10px;border-bottom:1px solid rgba(0,220,255,.08);
-}
-.shelf-title{font-family:'Syne',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:800;text-transform:uppercase;letter-spacing:1px}
-.shelf-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(0,220,255,.12),transparent)}
-.shelf-badge{font-size:10px;font-weight:700;color:var(--cyan);background:rgba(0,220,255,.08);border:1px solid rgba(0,220,255,.15);padding:2px 9px;border-radius:50px;white-space:nowrap}
-
-.shelf-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
-@media(max-width:900px){.shelf-row{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:560px){.shelf-row{grid-template-columns:repeat(3,1fr)}}
+.srow{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+@media(max-width:900px){.srow{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:560px){.srow{grid-template-columns:repeat(3,1fr)}}
 
 .cc{
-  border-radius:var(--r3);aspect-ratio:16/9;
+  border-radius:8px;aspect-ratio:16/9;
   position:relative;overflow:hidden;cursor:pointer;
   border:1px solid rgba(255,255,255,.06);
-  transition:transform .26s,box-shadow .26s,border-color .26s;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
 }
-.cc:hover{transform:scale(1.08) translateY(-5px);box-shadow:0 16px 50px rgba(0,0,0,.8),0 0 24px var(--hg,rgba(0,220,255,.18));border-color:rgba(0,220,255,.3);z-index:5}
+.cc:hover{transform:scale(1.09) translateY(-5px);box-shadow:0 18px 52px rgba(0,0,0,.85),0 0 26px var(--hg,rgba(0,224,255,.2));border-color:rgba(0,224,255,.3);z-index:5}
 .cc-bg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px}
 .cc-e{font-size:clamp(18px,2.5vw,26px);margin-bottom:3px;filter:drop-shadow(0 1px 6px rgba(0,0,0,.7))}
 .cc-l{font-size:clamp(7px,.9vw,9px);font-weight:700;text-align:center;line-height:1.2;text-shadow:0 1px 4px rgba(0,0,0,.9);text-transform:uppercase;letter-spacing:.4px}
-.cc-live{position:absolute;top:4px;right:4px;background:rgba(220,30,30,.92);font-size:7px;font-weight:800;letter-spacing:.7px;color:#fff;padding:2px 5px;border-radius:3px}
-.cc-ov{position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,5,14,.95) 0%,transparent 55%);opacity:0;transition:opacity .22s;display:flex;flex-direction:column;justify-content:flex-end;padding:7px}
+.cc-lv{position:absolute;top:4px;right:4px;background:rgba(220,30,30,.9);font-size:7px;font-weight:800;letter-spacing:.7px;color:#fff;padding:2px 5px;border-radius:3px}
+.cc-ov{position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,6,15,.96) 0%,transparent 55%);opacity:0;transition:opacity .22s;display:flex;flex-direction:column;justify-content:flex-end;padding:7px}
 .cc:hover .cc-ov{opacity:1}
-.cc-play{display:inline-flex;align-items:center;gap:4px;font-family:'Syne',sans-serif;font-size:8px;font-weight:800;color:var(--cyan);border:1px solid rgba(0,220,255,.4);background:rgba(0,220,255,.1);padding:3px 8px;text-transform:uppercase;letter-spacing:.5px;width:fit-content}
+.cc-play{display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:800;color:var(--c);border:1px solid rgba(0,224,255,.4);background:rgba(0,224,255,.1);padding:3px 8px;text-transform:uppercase;letter-spacing:.5px;width:fit-content}
 
-/* ═══════════════════════════════════
-   SPEED + FEATURES
-═══════════════════════════════════ */
-.info-sec{
-  background:var(--bg);
-  padding:clamp(52px,7vh,88px) clamp(16px,5vw,56px);
-  border-top:1px solid var(--border);
-}
-.info-grid{
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:260px 1fr;
-  gap:clamp(24px,4vw,60px);align-items:start;
-}
-@media(max-width:760px){.info-grid{grid-template-columns:1fr}}
-
-/* speedometer */
-svg.speedo{width:100%;height:auto;max-width:220px;display:block;margin:0 auto 16px}
-.sa-bg{fill:none;stroke:rgba(0,220,255,.08);stroke-width:9;stroke-linecap:round}
+/* ═══════════════════════════════════════════════
+   SPEED
+═══════════════════════════════════════════════ */
+.speed-sec{background:var(--ink2);padding:clamp(56px,8vh,88px) clamp(16px,5vw,60px);border-top:1px solid var(--bdr)}
+.speed-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+@media(max-width:720px){.speed-grid{grid-template-columns:1fr}}
+svg.spd{width:100%;height:auto;max-width:220px;display:block;margin:0 auto 16px}
+.sa-bg{fill:none;stroke:rgba(0,224,255,.08);stroke-width:9;stroke-linecap:round}
 .sa-fill{fill:none;stroke:url(#sg);stroke-width:9;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 2.2s cubic-bezier(.4,0,.2,1)}
-.sn{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;fill:var(--cyan);text-anchor:middle;dominant-baseline:middle}
-.su{font-size:10px;fill:var(--muted);text-anchor:middle;text-transform:uppercase;letter-spacing:1px}
+.sn{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;fill:var(--c);text-anchor:middle;dominant-baseline:middle}
+.su{font-size:10px;fill:var(--fg3);text-anchor:middle;text-transform:uppercase;letter-spacing:.8px}
+.sl{list-style:none}
+.si{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:padding-left .18s}
+.si:last-child{border-bottom:none}.si:hover{padding-left:5px}
+.sdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.sg{background:var(--gr);box-shadow:0 0 8px var(--gr)}.sc{background:var(--c);box-shadow:0 0 8px var(--c)}.sau{background:var(--g);box-shadow:0 0 8px var(--g)}.sm{background:var(--m);box-shadow:0 0 8px var(--m)}.sw{background:var(--wa);box-shadow:0 0 8px var(--wa)}
+.si-t strong{display:block;font-size:13px;font-weight:700;color:var(--fg);margin-bottom:1px}
+.si-t span{font-size:11px;color:var(--fg2);line-height:1.4}
 
-.speed-items{list-style:none}
-.si{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:padding-left .18s}
-.si:last-child{border-bottom:none}.si:hover{padding-left:6px}
-.sdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.sdot-g{background:var(--green);box-shadow:0 0 8px var(--green)}
-.sdot-c{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
-.sdot-au{background:var(--gold);box-shadow:0 0 8px var(--gold)}
-.sdot-m{background:var(--mag);box-shadow:0 0 8px var(--mag)}
-.sdot-w{background:var(--wa);box-shadow:0 0 8px var(--wa)}
-.si-t strong{display:block;font-size:13px;font-weight:700;color:var(--white);margin-bottom:1px}
-.si-t span{font-size:11px;color:var(--muted);line-height:1.4}
-
-/* features */
-.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-@media(max-width:440px){.feat-grid{grid-template-columns:1fr}}
-
+/* ═══════════════════════════════════════════════
+   FEATURES
+═══════════════════════════════════════════════ */
+.feat-sec{background:var(--ink);padding:clamp(56px,8vh,88px) clamp(16px,5vw,60px);border-top:1px solid var(--bdr)}
+.feat-inner{max-width:1140px;margin:0 auto}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:740px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.feat-grid{grid-template-columns:1fr}}
 .fc{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--r2);padding:20px 18px;
-  position:relative;overflow:hidden;
+  background:var(--ink2);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:22px 20px;position:relative;overflow:hidden;
   transition:border-color .25s,transform .25s;
 }
-.fc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--mag));opacity:0;transition:opacity .25s}
-.fc:hover{border-color:rgba(0,220,255,.22);transform:translateY(-4px)}.fc:hover::after{opacity:1}
-.fi{font-size:24px;margin-bottom:12px;filter:drop-shadow(0 0 7px rgba(0,220,255,.3))}
-.ft{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;margin-bottom:6px}
-.fd{font-size:11px;color:var(--muted);line-height:1.6}
+.fc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c),var(--m));opacity:0;transition:opacity .25s}
+.fc:hover{border-color:rgba(0,224,255,.22);transform:translateY(-4px)}.fc:hover::after{opacity:1}
+.fc-icon{font-size:24px;margin-bottom:12px;filter:drop-shadow(0 0 7px rgba(0,224,255,.3))}
+.fc-t{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:6px}
+.fc-d{font-size:12px;color:var(--fg2);line-height:1.65}
 
-/* ═══════════════════════════════════
-   ACCESS + FINAL CTA
-═══════════════════════════════════ */
-.access-sec{background:var(--bg2);padding:clamp(52px,7vh,88px) clamp(16px,5vw,56px);border-top:1px solid var(--border)}
-.access-card{
-  max-width:640px;margin:0 auto;
-  background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:clamp(32px,5vw,52px) clamp(22px,5vw,52px);
+/* ═══════════════════════════════════════════════
+   FINAL CTA + ACCESS
+═══════════════════════════════════════════════ */
+.access-sec{background:var(--ink2);padding:clamp(56px,8vh,88px) clamp(16px,5vw,60px);border-top:1px solid var(--bdr)}
+.ac-card{
+  max-width:660px;margin:0 auto;
+  background:rgba(0,224,255,.04);
+  border:1px solid rgba(0,224,255,.15);
+  border-radius:20px;
+  padding:clamp(32px,5vw,52px) clamp(22px,5vw,52px);
   text-align:center;position:relative;overflow:hidden;
 }
-.access-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 35% at 50% 0%,rgba(0,220,255,.06),transparent 60%);pointer-events:none}
-.a-icon{font-size:48px;display:block;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(0,220,255,.4))}
-.a-h3{font-family:'Syne',sans-serif;font-size:clamp(20px,3.5vw,30px);font-weight:800;margin-bottom:12px}
-.a-p{font-size:14px;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto 24px}
+.ac-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 35% at 50% 0%,rgba(0,224,255,.07),transparent 60%);pointer-events:none}
+.ac-ic{font-size:48px;display:block;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(0,224,255,.45))}
+.ac-h{font-family:'Syne',sans-serif;font-size:clamp(20px,3.5vw,30px);font-weight:800;margin-bottom:12px}
+.ac-p{font-size:14px;color:var(--fg2);line-height:1.7;max-width:400px;margin:0 auto 24px}
 
 .final-sec{
-  background:var(--bg);padding:clamp(72px,10vh,120px) clamp(16px,5vw,56px);
+  background:var(--ink3);
+  padding:clamp(72px,10vh,120px) clamp(16px,5vw,60px);
   text-align:center;position:relative;overflow:hidden;
-  border-top:1px solid var(--border);
+  border-top:1px solid var(--bdr);
 }
-.final-sec::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(0,220,255,.1),transparent 62%),radial-gradient(ellipse 40% 30% at 15% 50%,rgba(217,70,239,.05),transparent 60%)}
-.final-inner{position:relative;z-index:2}
-.final-h2{font-family:'Syne',sans-serif;font-size:clamp(30px,6vw,64px);font-weight:800;line-height:.95;letter-spacing:-1.5px;margin-bottom:14px;text-transform:uppercase}
-.final-h2 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),var(--mag));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.final-sub{font-size:clamp(13px,1.5vw,17px);color:var(--muted);max-width:440px;margin:0 auto 36px;line-height:1.65}
+.final-sec::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(0,224,255,.1),transparent 62%),radial-gradient(ellipse 40% 30% at 15% 50%,rgba(192,38,211,.05),transparent 60%)}
+.fin-inner{position:relative;z-index:2}
+.fin-h{font-family:'Syne',sans-serif;font-size:clamp(30px,6vw,64px);font-weight:800;line-height:.95;letter-spacing:-1.5px;text-transform:uppercase;margin-bottom:14px}
+.fin-h em{font-style:normal;background:linear-gradient(90deg,var(--c),var(--m));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fin-sub{font-size:clamp(13px,1.5vw,17px);color:var(--fg2);max-width:440px;margin:0 auto 36px;line-height:1.65}
 .wa-wrap{display:inline-block;position:relative;margin-bottom:18px}
-.wa-r{position:absolute;inset:-8px;border-radius:50px;border:2px solid rgba(37,211,102,.2);animation:rO 2.2s ease-in-out infinite;pointer-events:none}
+.wa-r{position:absolute;inset:-8px;border-radius:100px;border:2px solid rgba(37,211,102,.2);animation:wro 2.2s ease-in-out infinite;pointer-events:none}
 .wa-r:nth-child(2){inset:-18px;animation-delay:.4s}.wa-r:nth-child(3){inset:-28px;animation-delay:.8s}
-@keyframes rO{0%{opacity:.7}100%{opacity:0;transform:scale(1.1)}}
-.btn-wa-xl{
+@keyframes wro{0%{opacity:.7}100%{opacity:0;transform:scale(1.1)}}
+.bwa-xl{
   display:inline-flex;align-items:center;gap:12px;
-  background:var(--wa);color:#fff;padding:18px 44px;border-radius:50px;
+  background:var(--wa);color:#fff;padding:18px 44px;border-radius:100px;
   font-size:clamp(14px,2vw,18px);font-weight:800;
-  text-decoration:none;box-shadow:0 0 50px rgba(37,211,102,.4);
-  transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden;white-space:nowrap;
+  box-shadow:0 0 50px rgba(37,211,102,.4);
+  transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden;
 }
-.btn-wa-xl::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
-.btn-wa-xl:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 8px 60px rgba(37,211,102,.65)}.btn-wa-xl:hover::after{opacity:1}
-.final-note{font-size:12px;color:rgba(237,240,255,.25)}.final-note a{color:var(--cyan);text-decoration:none}
+.bwa-xl::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
+.bwa-xl:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 8px 60px rgba(37,211,102,.65)}.bwa-xl:hover::after{opacity:1}
+.fin-note{font-size:12px;color:var(--fg3)}.fin-note a{color:var(--c)}
 
-/* ═══════════════════════════════════
+/* ═══════════════════════════════════════════════
    FOOTER
-═══════════════════════════════════ */
-footer{background:#01020a;border-top:1px solid var(--border);padding:26px 20px calc(26px + var(--sb));text-align:center}
+═══════════════════════════════════════════════ */
+footer{background:#01020a;border-top:1px solid var(--bdr);padding:24px 20px calc(24px + var(--sb));text-align:center}
 .fl{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;margin-bottom:8px}
-.fl b{color:var(--cyan)}.fl em{color:var(--mag);font-style:normal}
-footer p{font-size:11px;color:rgba(237,240,255,.22);line-height:1.75;max-width:500px;margin:0 auto}
+.fl b{color:var(--c)}.fl em{color:var(--m);font-style:normal}
+footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:0 auto}
 
-/* ═══════════════════════════════════
+/* ═══════════════════════════════════════════════
    STICKY WA
-═══════════════════════════════════ */
+═══════════════════════════════════════════════ */
 .swa{
-  position:fixed;bottom:calc(20px + var(--sb));right:16px;z-index:500;
-  width:52px;height:52px;border-radius:50%;
+  position:fixed;bottom:calc(20px + var(--sb));right:16px;z-index:999;
+  width:54px;height:54px;border-radius:50%;
   background:var(--wa);display:flex;align-items:center;justify-content:center;
-  font-size:22px;text-decoration:none;
-  box-shadow:0 4px 22px rgba(37,211,102,.5);
+  font-size:24px;box-shadow:0 4px 24px rgba(37,211,102,.55);
   transition:transform .2s,box-shadow .2s;
-  animation:swaB 3s ease-in-out infinite;
+  animation:swab 3s ease-in-out infinite;
 }
-.swa:hover{transform:scale(1.12);box-shadow:0 6px 32px rgba(37,211,102,.7)}
-@keyframes swaB{0%,100%{box-shadow:0 4px 22px rgba(37,211,102,.5)}50%{box-shadow:0 4px 40px rgba(37,211,102,.75),0 0 0 12px rgba(37,211,102,.08)}}
+.swa:hover{transform:scale(1.12);box-shadow:0 6px 36px rgba(37,211,102,.75)}
+@keyframes swab{0%,100%{box-shadow:0 4px 24px rgba(37,211,102,.55)}50%{box-shadow:0 4px 42px rgba(37,211,102,.8),0 0 0 14px rgba(37,211,102,.08)}}
 
-/* ═══════════════════════════════════
-   GSAP REVEAL
-═══════════════════════════════════ */
-.rv{opacity:0;transform:translateY(36px)}.rv-l{opacity:0;transform:translateX(-36px)}.rv-r{opacity:0;transform:translateX(36px)}.rv-s{opacity:0;transform:scale(.84)}
+/* ═══════════════════════════════════════════════
+   GSAP
+═══════════════════════════════════════════════ */
+.rv{opacity:0;transform:translateY(36px)}.rvl{opacity:0;transform:translateX(-36px)}.rvr{opacity:0;transform:translateX(36px)}.rvs{opacity:0;transform:scale(.85)}
 
-/* ═══════════════════════════════════
+/* ═══════════════════════════════════════════════
    RESPONSIVE
-═══════════════════════════════════ */
+═══════════════════════════════════════════════ */
 @media(max-width:640px){
-  .hero-h1{letter-spacing:-1.5px}
-  .gp-layout{gap:16px}
-  .shelf-row{grid-template-columns:repeat(3,1fr)}
+  h1.hero-h1{letter-spacing:-2px}
+  .gpl{gap:16px}
 }
-@media(max-width:380px){
-  .btn-p,.btn-wa-o{padding:12px 20px;font-size:13px}
-  .shelf-row{grid-template-columns:repeat(3,1fr)}
+@media(max-width:400px){
+  .bp,.bwa{padding:13px 20px;font-size:13px}
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.rv,.rv-l,.rv-r,.rv-s{opacity:1!important;transform:none!important}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .rv,.rvl,.rvr,.rvs{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
 
-<!-- sticky WA -->
 <a class="swa" id="swa" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
   <div class="logo">TU LATINO <b>TV</b> <em>MAX</em></div>
-  <a class="btn-nav" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> Prueba Gratis</a>
+  <a class="nav-wa" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> Prueba Gratis</a>
 </nav>
 
-<!-- ══════ HERO ══════ -->
-<section class="hero" aria-label="Inicio">
-  <div class="hbg">
-    <div class="hbg-glow"></div>
-    <div class="hbg-grid" aria-hidden="true"></div>
-    <div class="hbg-beams" aria-hidden="true">
-      <div class="beam b1"></div><div class="beam b2"></div>
-      <div class="beam b3"></div><div class="beam b4"></div><div class="beam b5"></div>
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hb1"></div>
+    <div class="hb2" aria-hidden="true"></div>
+    <div class="hb3" aria-hidden="true">
+      <div class="bm"></div><div class="bm"></div><div class="bm"></div><div class="bm"></div><div class="bm"></div>
     </div>
   </div>
   <canvas id="pc" aria-hidden="true"></canvas>
-  <div class="hvg" aria-hidden="true"></div>
-  <div class="hc">
-    <div class="htag">⚡ Temporada 2026</div>
+  <div class="hbv" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">⚡ Temporada 2026</div>
     <h1 class="hero-h1">
-      <span class="ln"><span class="lni c1">Tu pantalla lista</span></span>
-      <span class="ln"><span class="lni c2">para la temporada</span></span>
-      <span class="ln"><span class="lni c3">más grande</span></span>
+      <span class="ln"><span class="lni c1">Tu pantalla</span></span>
+      <span class="ln"><span class="lni c2">lista para la</span></span>
+      <span class="ln"><span class="lni c3">temporada más grande</span></span>
     </h1>
-    <p class="hero-sub">Fútbol en vivo HD, +50.000 películas, series y +12.000 canales. Instala en <strong>cualquier dispositivo</strong> con nuestra guía paso a paso.</p>
+    <p class="hero-sub">Fútbol en vivo HD · +50.000 películas · Series ilimitadas · +12.000 canales.<br>Instala en <strong>cualquier dispositivo</strong> con nuestra guía visual paso a paso.</p>
     <div class="hero-ctas">
-      <a class="btn-p" href="#guide" onclick="document.getElementById('guide').scrollIntoView({behavior:'smooth'});return false">📱 Ver guía de instalación</a>
-      <a class="btn-wa-o" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener">💬 Activar por WhatsApp</a>
+      <a class="bp" href="#guide" onclick="document.getElementById('guide').scrollIntoView({behavior:'smooth'});return false"><span aria-hidden="true">📱</span> Ver guía de instalación</a>
+      <a class="bwa" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> Activar por WhatsApp</a>
     </div>
-    <div class="hbadges">
-      <span class="hb"><span class="hb-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan)"></span>+12.000 canales</span>
-      <span class="hb"><span class="hb-dot" style="background:var(--gold);box-shadow:0 0 6px var(--gold)"></span>Fútbol en vivo HD</span>
-      <span class="hb"><span class="hb-dot" style="background:var(--mag);box-shadow:0 0 6px var(--mag)"></span>Activa en 3 min</span>
-      <span class="hb"><span class="hb-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></span>Soporte 24/7</span>
+    <div class="hero-bgs">
+      <span class="hbg"><span class="hdot" style="background:var(--c);box-shadow:0 0 6px var(--c)"></span>+12.000 canales</span>
+      <span class="hbg"><span class="hdot" style="background:var(--g);box-shadow:0 0 6px var(--g)"></span>Fútbol HD en vivo</span>
+      <span class="hbg"><span class="hdot" style="background:var(--m);box-shadow:0 0 6px var(--m)"></span>Activa en 3 min</span>
+      <span class="hbg"><span class="hdot" style="background:var(--gr);box-shadow:0 0 6px var(--gr)"></span>Soporte 24/7</span>
     </div>
-  </div>
-</section>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat rv-s"><div class="stat-n sn-g">12K+</div><div class="stat-l">Canales en vivo</div></div>
-    <div class="stat rv-s"><div class="stat-n sn-c">50K+</div><div class="stat-l">Películas y series</div></div>
-    <div class="stat rv-s"><div class="stat-n sn-m">3 min</div><div class="stat-l">Activación express</div></div>
-    <div class="stat rv-s"><div class="stat-n sn-gr">24/7</div><div class="stat-l">Soporte WhatsApp</div></div>
-  </div>
-</div>
-
-<!-- ══════ GUIDE ══════ -->
-<section id="guide" class="guide-sec" aria-label="Guía de instalación">
-  <div class="gw">
-    <div class="sh rv">
-      <div class="eyebrow">Instalación paso a paso</div>
-      <h2 class="sec-h2">¿Desde dónde quieres ver?</h2>
-      <p class="sec-sub">Elige tu dispositivo — la guía se adapta. Todos los dispositivos siempre disponibles.</p>
+    <!-- STATS pegados al hero -->
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-v sv-g">12K+</div><div class="hstat-l">Canales en vivo</div></div>
+      <div class="hstat"><div class="hstat-v sv-c">50K+</div><div class="hstat-l">Películas & series</div></div>
+      <div class="hstat"><div class="hstat-v sv-m">3 min</div><div class="hstat-l">Activación</div></div>
+      <div class="hstat"><div class="hstat-v sv-gr">24/7</div><div class="hstat-l">Soporte WA</div></div>
     </div>
-
-    <div class="detect-notice rv" id="detectBar">
-      <span class="detect-dot" aria-hidden="true"></span>
-      <span id="detectTxt">Detectando tu dispositivo…</span>
-    </div>
-
-    <!-- 6 SIEMPRE VISIBLES -->
-    <div class="dev-grid rv" role="group" aria-label="Elige tu dispositivo">
-      <div class="dc" data-dev="smarttv" onclick="pickDev('smarttv',this)" role="button" tabindex="0" aria-pressed="false">
-        <div class="fyu">★ Para ti</div>
-        <span class="dc-icon">📺</span>
-        <div class="dc-name">Smart TV</div>
-        <div class="dc-sub">Samsung · LG · Sony</div>
-      </div>
-      <div class="dc" data-dev="firestick" onclick="pickDev('firestick',this)" role="button" tabindex="0" aria-pressed="false">
-        <div class="fyu">★ Para ti</div>
-        <span class="dc-icon">🔥</span>
-        <div class="dc-name">Fire Stick</div>
-        <div class="dc-sub">Amazon · Fire TV</div>
-      </div>
-      <div class="dc" data-dev="androidtv" onclick="pickDev('androidtv',this)" role="button" tabindex="0" aria-pressed="false">
-        <div class="fyu">★ Para ti</div>
-        <span class="dc-icon">🤖</span>
-        <div class="dc-name">Android TV</div>
-        <div class="dc-sub">Box · Chromecast</div>
-      </div>
-      <div class="dc" data-dev="android" onclick="pickDev('android',this)" role="button" tabindex="0" aria-pressed="false">
-        <div class="fyu">★ Para ti</div>
-        <span class="dc-icon">📱</span>
-        <div class="dc-name">Android</div>
-        <div class="dc-sub">Celular · Tablet</div>
-      </div>
-      <div class="dc" data-dev="ios" onclick="pickDev('ios',this)" role="button" tabindex="0" aria-pressed="false">
-        <div class="fyu">★ Para ti</div>
-        <span class="dc-icon">🍎</span>
-        <div class="dc-name">iPhone · iPad</div>
-        <div class="dc-sub">iOS · Apple TV</div>
-      </div>
-      <div class="dc" data-dev="pc" onclick="pickDev('pc',this)" role="button" tabindex="0" aria-pressed="false">
-        <div class="fyu">★ Para ti</div>
-        <span class="dc-icon">💻</span>
-        <div class="dc-name">PC · Mac</div>
-        <div class="dc-sub">Windows · macOS</div>
-      </div>
-    </div>
-
-    <div id="guidePanel"></div>
   </div>
 </section>
 
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
-  <div class="tk-track">
-    <div class="tk-item"><span class="td"></span>FÚTBOL EN VIVO <em>HD</em></div>
-    <div class="tk-item"><span class="td"></span>PELÍCULAS <em>50.000+</em></div>
-    <div class="tk-item"><span class="td"></span>SERIES <em>ILIMITADAS</em></div>
-    <div class="tk-item"><span class="td"></span>TV EN VIVO <em>12.000+ CANALES</em></div>
-    <div class="tk-item"><span class="td"></span>ACTIVACIÓN <em>3 MINUTOS</em></div>
-    <div class="tk-item"><span class="td"></span>SOPORTE <em>HUMANO 24/7</em></div>
-    <div class="tk-item"><span class="td"></span>PRUEBA <em>GRATIS HOY</em></div>
-    <div class="tk-item"><span class="td"></span>FÚTBOL EN VIVO <em>HD</em></div>
-    <div class="tk-item"><span class="td"></span>PELÍCULAS <em>50.000+</em></div>
-    <div class="tk-item"><span class="td"></span>SERIES <em>ILIMITADAS</em></div>
-    <div class="tk-item"><span class="td"></span>TV EN VIVO <em>12.000+ CANALES</em></div>
-    <div class="tk-item"><span class="td"></span>ACTIVACIÓN <em>3 MINUTOS</em></div>
-    <div class="tk-item"><span class="td"></span>SOPORTE <em>HUMANO 24/7</em></div>
-    <div class="tk-item"><span class="td"></span>PRUEBA <em>GRATIS HOY</em></div>
+  <div class="tk">
+    <div class="tki"><span class="td"></span>FÚTBOL EN VIVO <em>HD</em></div>
+    <div class="tki"><span class="td"></span>PELÍCULAS <em>50.000+</em></div>
+    <div class="tki"><span class="td"></span>SERIES <em>ILIMITADAS</em></div>
+    <div class="tki"><span class="td"></span>TV EN VIVO <em>12.000+ CANALES</em></div>
+    <div class="tki"><span class="td"></span>ACTIVACIÓN <em>3 MINUTOS</em></div>
+    <div class="tki"><span class="td"></span>SOPORTE <em>HUMANO 24/7</em></div>
+    <div class="tki"><span class="td"></span>PRUEBA <em>GRATIS HOY</em></div>
+    <div class="tki"><span class="td"></span>FÚTBOL EN VIVO <em>HD</em></div>
+    <div class="tki"><span class="td"></span>PELÍCULAS <em>50.000+</em></div>
+    <div class="tki"><span class="td"></span>SERIES <em>ILIMITADAS</em></div>
+    <div class="tki"><span class="td"></span>TV EN VIVO <em>12.000+ CANALES</em></div>
+    <div class="tki"><span class="td"></span>ACTIVACIÓN <em>3 MINUTOS</em></div>
+    <div class="tki"><span class="td"></span>SOPORTE <em>HUMANO 24/7</em></div>
+    <div class="tki"><span class="td"></span>PRUEBA <em>GRATIS HOY</em></div>
   </div>
 </div>
 
-<!-- ══════ CONTENT ══════ -->
-<section class="content-sec" aria-label="Catálogo">
-  <div class="ci">
-    <div class="sh rv" style="text-align:center;margin-bottom:24px">
-      <div class="eyebrow" style="justify-content:center">Catálogo completo</div>
-      <h2 class="sec-h2">Todo en <span style="color:var(--cyan)">una pantalla</span></h2>
+<!-- ══════════════ GUIDE ══════════════ -->
+<section id="guide" class="guide-sec" aria-label="Guía de instalación">
+  <div class="gw">
+    <div class="sh rv">
+      <div class="eyebrow">Instalación paso a paso</div>
+      <h2 class="sh2">¿Desde dónde quieres ver?</h2>
+      <p class="ssub">Elige tu dispositivo y sigue la guía visual. Todos los dispositivos disponibles siempre.</p>
     </div>
-    <!-- Fútbol -->
+
+    <div class="dstrip rv" id="dbar">
+      <span class="ddot" aria-hidden="true"></span>
+      <span id="dtxt">Detectando tu dispositivo…</span>
+    </div>
+
+    <!-- ★ 6 SIEMPRE VISIBLES ★ -->
+    <div class="dg rv" role="group" aria-label="Elige tu dispositivo">
+      <div class="dc" data-dev="smarttv" onclick="pick('smarttv',this)" role="button" tabindex="0" aria-pressed="false"><div class="fyu">★ Para ti</div><span class="dci">📺</span><div class="dcn">Smart TV</div><div class="dcs">Samsung · LG · Sony</div></div>
+      <div class="dc" data-dev="firestick" onclick="pick('firestick',this)" role="button" tabindex="0" aria-pressed="false"><div class="fyu">★ Para ti</div><span class="dci">🔥</span><div class="dcn">Fire Stick</div><div class="dcs">Amazon · Fire TV</div></div>
+      <div class="dc" data-dev="androidtv" onclick="pick('androidtv',this)" role="button" tabindex="0" aria-pressed="false"><div class="fyu">★ Para ti</div><span class="dci">🤖</span><div class="dcn">Android TV</div><div class="dcs">Box · Chromecast</div></div>
+      <div class="dc" data-dev="android" onclick="pick('android',this)" role="button" tabindex="0" aria-pressed="false"><div class="fyu">★ Para ti</div><span class="dci">📱</span><div class="dcn">Android</div><div class="dcs">Celular · Tablet</div></div>
+      <div class="dc" data-dev="ios" onclick="pick('ios',this)" role="button" tabindex="0" aria-pressed="false"><div class="fyu">★ Para ti</div><span class="dci">🍎</span><div class="dcn">iPhone · iPad</div><div class="dcs">iOS · Apple TV</div></div>
+      <div class="dc" data-dev="pc" onclick="pick('pc',this)" role="button" tabindex="0" aria-pressed="false"><div class="fyu">★ Para ti</div><span class="dci">💻</span><div class="dcn">PC · Mac</div><div class="dcs">Windows · macOS</div></div>
+    </div>
+
+    <div id="gp"></div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTENT ══════════════ -->
+<section class="content" aria-label="Catálogo">
+  <div class="ci">
+    <div class="sh rv" style="text-align:center;margin-bottom:22px">
+      <div class="eyebrow" style="justify-content:center">Catálogo completo</div>
+      <h2 class="sh2">Todo en <span style="color:var(--c)">una sola pantalla</span></h2>
+    </div>
     <div class="shelf">
-      <div class="shelf-hdr rv"><div class="shelf-title">⚽ Fútbol en Vivo</div><div class="shelf-line"></div><div class="shelf-badge">HD disponible</div></div>
-      <div class="shelf-row">
-        <div class="cc rv" style="background:linear-gradient(135deg,#0a2218,#0d3520);--hg:rgba(0,220,255,.22)"><div class="cc-bg"><span class="cc-e">🏟️</span><div class="cc-l">Ligas Europeas</div></div><div class="cc-live">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#281800,#3e2400);--hg:rgba(245,200,66,.2)"><div class="cc-bg"><span class="cc-e">🏆</span><div class="cc-l">Torneos Int.</div></div><div class="cc-live">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+      <div class="shdr rv"><div class="stitle">⚽ Fútbol en Vivo</div><div class="sline"></div><div class="sbadge">HD disponible</div></div>
+      <div class="srow">
+        <div class="cc rv" style="background:linear-gradient(135deg,#0a2218,#0d3520);--hg:rgba(0,224,255,.22)"><div class="cc-bg"><span class="cc-e">🏟️</span><div class="cc-l">Ligas Europeas</div></div><div class="cc-lv">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#281800,#3e2400);--hg:rgba(234,179,8,.2)"><div class="cc-bg"><span class="cc-e">🏆</span><div class="cc-l">Torneos Int.</div></div><div class="cc-lv">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
         <div class="cc rv" style="background:linear-gradient(135deg,#0a2030,#0e2e42);--hg:rgba(0,160,255,.2)"><div class="cc-bg"><span class="cc-e">⚽</span><div class="cc-l">Ligas Latinas</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#1a0a28,#260e3c);--hg:rgba(217,70,239,.2)"><div class="cc-bg"><span class="cc-e">🎽</span><div class="cc-l">Selecciones</div></div><div class="cc-live">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#0a180a,#0e260e);--hg:rgba(34,212,122,.2)"><div class="cc-bg"><span class="cc-e">🏀</span><div class="cc-l">Deportes Extra</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#200808,#300c0c);--hg:rgba(255,60,60,.2)"><div class="cc-bg"><span class="cc-e">🎾</span><div class="cc-l">Tenis & Más</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#1a0a28,#260e3c);--hg:rgba(192,38,211,.2)"><div class="cc-bg"><span class="cc-e">🎽</span><div class="cc-l">Selecciones</div></div><div class="cc-lv">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#0a180a,#0e260e);--hg:rgba(34,197,94,.2)"><div class="cc-bg"><span class="cc-e">🏀</span><div class="cc-l">Deportes Extra</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#1e0808,#300c0c);--hg:rgba(255,60,60,.2)"><div class="cc-bg"><span class="cc-e">🥊</span><div class="cc-l">Boxeo & UFC</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
       </div>
     </div>
-    <!-- Películas -->
     <div class="shelf">
-      <div class="shelf-hdr rv"><div class="shelf-title">🎬 Películas HD</div><div class="shelf-line"></div><div class="shelf-badge">+50.000 títulos</div></div>
-      <div class="shelf-row">
-        <div class="cc rv" style="background:linear-gradient(135deg,#1e0a30,#2c0e44);--hg:rgba(217,70,239,.25)"><div class="cc-bg"><span class="cc-e">💥</span><div class="cc-l">Acción</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+      <div class="shdr rv"><div class="stitle">🎬 Películas HD</div><div class="sline"></div><div class="sbadge">+50.000 títulos</div></div>
+      <div class="srow">
+        <div class="cc rv" style="background:linear-gradient(135deg,#1e0a30,#2c0e44);--hg:rgba(192,38,211,.25)"><div class="cc-bg"><span class="cc-e">💥</span><div class="cc-l">Acción</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
         <div class="cc rv" style="background:linear-gradient(135deg,#300a18,#420e22);--hg:rgba(255,80,120,.2)"><div class="cc-bg"><span class="cc-e">💘</span><div class="cc-l">Romance</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#281e08,#3c2c0a);--hg:rgba(245,200,66,.2)"><div class="cc-bg"><span class="cc-e">😂</span><div class="cc-l">Comedia</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#281e08,#3c2c0a);--hg:rgba(234,179,8,.2)"><div class="cc-bg"><span class="cc-e">😂</span><div class="cc-l">Comedia</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
         <div class="cc rv" style="background:linear-gradient(135deg,#200808,#320a0a);--hg:rgba(255,40,40,.2)"><div class="cc-bg"><span class="cc-e">🎃</span><div class="cc-l">Terror</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#081828,#0c2036);--hg:rgba(0,220,255,.2)"><div class="cc-bg"><span class="cc-e">🚀</span><div class="cc-l">Sci-Fi</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#081828,#0c2036);--hg:rgba(0,224,255,.2)"><div class="cc-bg"><span class="cc-e">🚀</span><div class="cc-l">Sci-Fi</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
         <div class="cc rv" style="background:linear-gradient(135deg,#141028,#1e1638);--hg:rgba(160,120,255,.2)"><div class="cc-bg"><span class="cc-e">🎭</span><div class="cc-l">Latino</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
       </div>
     </div>
-    <!-- TV -->
     <div class="shelf">
-      <div class="shelf-hdr rv"><div class="shelf-title">📡 Series & TV en Vivo</div><div class="shelf-line"></div><div class="shelf-badge">+12.000 canales</div></div>
-      <div class="shelf-row">
-        <div class="cc rv" style="background:linear-gradient(135deg,#080e20,#0c1530);--hg:rgba(0,220,255,.2)"><div class="cc-bg"><span class="cc-e">📰</span><div class="cc-l">Noticias</div></div><div class="cc-live">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#1a0e24,#261430);--hg:rgba(217,70,239,.2)"><div class="cc-bg"><span class="cc-e">🎵</span><div class="cc-l">Entretenimiento</div></div><div class="cc-live">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#281408,#3a1c0a);--hg:rgba(245,150,66,.2)"><div class="cc-bg"><span class="cc-e">👶</span><div class="cc-l">Infantil</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#200828,#2e1038);--hg:rgba(200,80,255,.2)"><div class="cc-bg"><span class="cc-e">💃</span><div class="cc-l">Novelas</div></div><div class="cc-live">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+      <div class="shdr rv"><div class="stitle">📡 Series & TV en Vivo</div><div class="sline"></div><div class="sbadge">+12.000 canales</div></div>
+      <div class="srow">
+        <div class="cc rv" style="background:linear-gradient(135deg,#080e20,#0c1530);--hg:rgba(0,224,255,.2)"><div class="cc-bg"><span class="cc-e">📰</span><div class="cc-l">Noticias</div></div><div class="cc-lv">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#1a0e24,#261430);--hg:rgba(192,38,211,.2)"><div class="cc-bg"><span class="cc-e">🎵</span><div class="cc-l">Entretenimiento</div></div><div class="cc-lv">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#281408,#3a1c0a);--hg:rgba(234,179,8,.2)"><div class="cc-bg"><span class="cc-e">👶</span><div class="cc-l">Infantil</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#200828,#2e1038);--hg:rgba(192,38,211,.2)"><div class="cc-bg"><span class="cc-e">💃</span><div class="cc-l">Novelas</div></div><div class="cc-lv">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
         <div class="cc rv" style="background:linear-gradient(135deg,#081820,#0c222e);--hg:rgba(0,160,255,.2)"><div class="cc-bg"><span class="cc-e">🌍</span><div class="cc-l">Internacionales</div></div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
-        <div class="cc rv" style="background:linear-gradient(135deg,#1e1008,#2c180a);--hg:rgba(255,150,50,.2)"><div class="cc-bg"><span class="cc-e">📡</span><div class="cc-l">Regionales</div></div><div class="cc-live">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
+        <div class="cc rv" style="background:linear-gradient(135deg,#1e1008,#2c180a);--hg:rgba(255,150,50,.2)"><div class="cc-bg"><span class="cc-e">📡</span><div class="cc-l">Regionales</div></div><div class="cc-lv">LIVE</div><div class="cc-ov"><div class="cc-play">▶ VER</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════ INFO ══════ -->
-<section class="info-sec" aria-label="Conexión y características">
-  <div class="info-grid">
-    <!-- Speed -->
-    <div>
+<!-- ══════════════ SPEED ══════════════ -->
+<section class="speed-sec" aria-label="Conexión recomendada">
+  <div class="speed-grid">
+    <div class="rvs">
       <div class="eyebrow rv" style="justify-content:center;margin-bottom:12px">Conexión ideal</div>
-      <svg class="speedo rv-s" viewBox="0 0 200 200" role="img" aria-label="Velocidad ideal 20 Mbps">
-        <defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#22d47a"/><stop offset="50%" stop-color="#00dcff"/><stop offset="100%" stop-color="#f5c842"/></linearGradient></defs>
+      <svg class="spd" viewBox="0 0 200 200" role="img" aria-label="Velocidad ideal 20 Mbps">
+        <defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#22c55e"/><stop offset="50%" stop-color="#00e0ff"/><stop offset="100%" stop-color="#eab308"/></linearGradient></defs>
         <path class="sa-bg" d="M 30 150 A 80 80 0 1 1 170 150"/>
         <path class="sa-fill" id="sArc" d="M 30 150 A 80 80 0 1 1 170 150"/>
         <text class="sn" x="100" y="108" id="sNum">0</text>
         <text class="su" x="100" y="127">MBPS IDEAL</text>
-        <g stroke="rgba(0,220,255,.2)" stroke-width="1.5">
+        <g stroke="rgba(0,224,255,.18)" stroke-width="1.5">
           <line x1="100" y1="30" x2="100" y2="40" transform="rotate(-130 100 150)"/>
           <line x1="100" y1="30" x2="100" y2="38" transform="rotate(-90 100 150)"/>
           <line x1="100" y1="30" x2="100" y2="40" transform="rotate(-50 100 150)"/>
@@ -774,25 +706,24 @@ footer p{font-size:11px;color:rgba(237,240,255,.22);line-height:1.75;max-width:5
           <line x1="100" y1="30" x2="100" y2="40" transform="rotate(30 100 150)"/>
         </g>
       </svg>
-      <ul class="speed-items rv">
-        <li class="si"><span class="sdot sdot-g"></span><div class="si-t"><strong>10 Mbps mínimo</strong><span>Streaming SD estable para 1 pantalla.</span></div></li>
-        <li class="si"><span class="sdot sdot-c"></span><div class="si-t"><strong>20 Mbps — HD completo</strong><span>Ideal para Smart TV y fútbol en vivo.</span></div></li>
-        <li class="si"><span class="sdot sdot-au"></span><div class="si-t"><strong>Ethernet en Smart TV</strong><span>Más estable que WiFi. Sin cortes.</span></div></li>
-        <li class="si"><span class="sdot sdot-m"></span><div class="si-t"><strong>WiFi 5 GHz preferido</strong><span>Menor interferencia que 2.4 GHz.</span></div></li>
-        <li class="si"><span class="sdot sdot-w"></span><div class="si-t"><strong>Cierra apps en segundo plano</strong><span>Más ancho de banda disponible.</span></div></li>
+      <ul class="sl rv">
+        <li class="si"><span class="sdot sg"></span><div class="si-t"><strong>10 Mbps mínimo</strong><span>Streaming SD estable para 1 pantalla.</span></div></li>
+        <li class="si"><span class="sdot sc"></span><div class="si-t"><strong>20 Mbps — HD completo</strong><span>Ideal para Smart TV y fútbol en vivo.</span></div></li>
+        <li class="si"><span class="sdot sau"></span><div class="si-t"><strong>Ethernet en Smart TV</strong><span>Más estable que WiFi. Sin cortes.</span></div></li>
+        <li class="si"><span class="sdot sm"></span><div class="si-t"><strong>WiFi 5 GHz preferido</strong><span>Menor interferencia, velocidad constante.</span></div></li>
+        <li class="si"><span class="sdot sw"></span><div class="si-t"><strong>Cierra apps en segundo plano</strong><span>Libera ancho de banda para streaming.</span></div></li>
       </ul>
     </div>
-    <!-- Features -->
     <div>
       <div class="eyebrow rv">Por qué elegirnos</div>
-      <h2 class="sec-h2 rv" style="margin-bottom:16px">Diseñado para <span style="color:var(--cyan)">tu familia</span></h2>
+      <h2 class="sh2 rv" style="margin-bottom:20px">Diseñado para <span style="color:var(--c)">disfrutar</span></h2>
       <div class="feat-grid">
-        <div class="fc rv"><span class="fi">⚡</span><div class="ft">Activación Express</div><div class="fd">Tu servicio activo en menos de 3 minutos. Solo escríbenos por WhatsApp.</div></div>
-        <div class="fc rv"><span class="fi">📱</span><div class="ft">Multi-dispositivo</div><div class="fd">Smart TV, Fire Stick, Android, iOS y PC. Una cuenta, todo compatible.</div></div>
-        <div class="fc rv"><span class="fi">🛡️</span><div class="ft">Conexión Estable</div><div class="fd">Servidores optimizados. Mínimo buffering, máxima calidad HD.</div></div>
-        <div class="fc rv"><span class="fi">🎧</span><div class="ft">Soporte Humano</div><div class="fd">Un agente real por WhatsApp. Sin bots, respuesta rápida.</div></div>
-        <div class="fc rv"><span class="fi">🔄</span><div class="ft">Siempre Actualizado</div><div class="fd">Nuevos canales y títulos cada semana. Catálogo en constante crecimiento.</div></div>
-        <div class="fc rv"><span class="fi">👨‍👩‍👧‍👦</span><div class="ft">Para la Familia</div><div class="fd">Infantil, deportes, novelas y cine. Algo para cada miembro del hogar.</div></div>
+        <div class="fc rv"><span class="fc-icon">⚡</span><div class="fc-t">Activación Express</div><div class="fc-d">Tu servicio activo en menos de 3 min via WhatsApp.</div></div>
+        <div class="fc rv"><span class="fc-icon">📱</span><div class="fc-t">Multi-dispositivo</div><div class="fc-d">Smart TV, Fire Stick, Android, iOS y PC. Una cuenta.</div></div>
+        <div class="fc rv"><span class="fc-icon">🛡️</span><div class="fc-t">Conexión Estable</div><div class="fc-d">Servidores optimizados. Mínimo buffering, HD máxima.</div></div>
+        <div class="fc rv"><span class="fc-icon">🎧</span><div class="fc-t">Soporte Humano</div><div class="fc-d">Agente real por WhatsApp. Sin bots, respuesta rápida.</div></div>
+        <div class="fc rv"><span class="fc-icon">🔄</span><div class="fc-t">Siempre Actualizado</div><div class="fc-d">Nuevos canales y títulos cada semana.</div></div>
+        <div class="fc rv"><span class="fc-icon">👨‍👩‍👧‍👦</span><div class="fc-t">Para la Familia</div><div class="fc-d">Infantil, deportes, novelas y cine para todos.</div></div>
       </div>
     </div>
   </div>
@@ -800,30 +731,27 @@ footer p{font-size:11px;color:rgba(237,240,255,.22);line-height:1.75;max-width:5
 
 <!-- ACCESS -->
 <section class="access-sec" aria-label="Seguridad">
-  <div class="access-card">
-    <span class="a-icon rv-s" aria-hidden="true">🛡️</span>
-    <h3 class="a-h3 rv">Tus datos, solo para ti</h3>
-    <p class="a-p rv">Por seguridad, tus <strong>credenciales personalizadas</strong> se entregan únicamente por WhatsApp. No publicamos usuarios ni contraseñas en sitios públicos.</p>
-    <a class="btn-wa-o rv" style="display:inline-flex;font-size:14px;padding:13px 26px"
-       href="https://wa.me/59169717743?text=Hola+quiero+mis+datos+de+acceso+para+Tu+Latino+TV+Max"
-       target="_blank" rel="noopener">🔐 Obtener datos de acceso</a>
+  <div class="ac-card rvs">
+    <span class="ac-ic" aria-hidden="true">🛡️</span>
+    <h3 class="ac-h rv">Tus datos, solo para ti</h3>
+    <p class="ac-p rv">Por seguridad, tus <strong>credenciales personalizadas</strong> se entregan únicamente por WhatsApp. No publicamos usuarios ni contraseñas en sitios públicos.</p>
+    <a class="bwa rv" style="display:inline-flex;font-size:14px;padding:13px 28px" href="https://wa.me/59169717743?text=Hola+quiero+mis+datos+de+acceso" target="_blank" rel="noopener">🔐 Obtener datos de acceso</a>
   </div>
 </section>
 
-<!-- FINAL CTA -->
+<!-- FINAL -->
 <section class="final-sec" aria-label="Activar">
-  <div class="final-inner">
-    <h2 class="final-h2 rv">Todo listo para<br>vivir <em>la pasión</em></h2>
-    <p class="final-sub rv">Activa tu prueba gratis. Sin contratos, sin pagos adelantados.</p>
-    <div class="wa-wrap rv-s">
+  <div class="fin-inner">
+    <h2 class="fin-h rv">Todo listo para<br>vivir <em>la pasión</em></h2>
+    <p class="fin-sub rv">Activa tu prueba gratis ahora. Sin contratos, sin pagos adelantados.</p>
+    <div class="wa-wrap rvs">
       <div class="wa-r" aria-hidden="true"></div><div class="wa-r" aria-hidden="true"></div><div class="wa-r" aria-hidden="true"></div>
-      <a class="btn-wa-xl" id="finalWA" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> ACTIVAR PRUEBA GRATIS</a>
+      <a class="bwa-xl" id="finalWA" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> ACTIVAR PRUEBA GRATIS</a>
     </div>
-    <p class="final-note">Soporte: <a href="https://wa.me/59169717743" target="_blank" rel="noopener">+591 69717743</a> · Sin contratos · Sin pagos adelantados</p>
+    <p class="fin-note">+591 <a href="https://wa.me/59169717743" target="_blank" rel="noopener">69717743</a> · Sin contratos · Sin pagos adelantados</p>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="fl">TU LATINO <b>TV</b> <em>MAX</em></div>
   <p>Entretenimiento latino en una sola pantalla.<br>La calidad puede variar según la velocidad de tu conexión a internet.<br>© 2026 Tu Latino TV Max · Soporte WhatsApp: +591 69717743</p>
@@ -834,166 +762,158 @@ footer p{font-size:11px;color:rgba(237,240,255,.22);line-height:1.75;max-width:5
 (function(){
   const cv=document.getElementById('pc');if(!cv)return;
   const ctx=cv.getContext('2d');let w,h,pts=[];
-  const cols=['rgba(0,220,255,','rgba(217,70,239,','rgba(245,200,66,','rgba(255,255,255,'];
+  const cols=['rgba(0,224,255,','rgba(192,38,211,','rgba(234,179,8,','rgba(255,255,255,'];
   function resize(){w=cv.width=cv.offsetWidth;h=cv.height=cv.offsetHeight}
-  function init(){const n=w<600?35:75;pts=[];for(let i=0;i<n;i++)pts.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+.3,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,c:cols[Math.floor(Math.random()*cols.length)],o:Math.random()*.4+.1})}
+  function init(){const n=w<600?30:65;pts=[];for(let i=0;i<n;i++)pts.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+.3,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,c:cols[Math.floor(Math.random()*cols.length)],o:Math.random()*.4+.1})}
   function draw(){ctx.clearRect(0,0,w,h);pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c+p.o+')';ctx.fill();p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0});requestAnimationFrame(draw)}
-  window.addEventListener('resize',()=>{resize();init()},{passive:true});
-  resize();init();draw();
+  window.addEventListener('resize',()=>{resize();init()},{passive:true});resize();init();draw();
 })();
 </script>
 
-<!-- GUIDE DATA + COPY LINKS -->
+<!-- GUIDE ENGINE -->
 <script>
 const WA=n=>`https://wa.me/59169717743?text=${encodeURIComponent(`Hola 👋 quiero activar mi prueba gratis de Tu Latino TV Max 📺⚽\n\nMi dispositivo es: ${n}`)}`;
 
-// App download links (real, direct)
-const APPS={
+const D={
   smarttv:{
-    links:[
-      {icon:'📺',label:'Buscar: IPTV Smarters',url:'https://www.google.com/search?q=IPTV+Smarters+Smart+TV+app',copy:false},
-      {icon:'📺',label:'Buscar: TiviMate',url:'https://www.google.com/search?q=TiviMate+Smart+TV+app',copy:false},
+    icon:'📺',name:'Smart TV',glow:'rgba(0,224,255,.6)',
+    dl:[
+      {ico:'📺',txt:'Buscar: IPTV Smarters (TV)',url:'https://www.google.com/search?q=IPTV+Smarters+Smart+TV+descargar'},
+      {ico:'📺',txt:'Buscar: TiviMate (TV)',url:'https://www.google.com/search?q=TiviMate+Smart+TV+descargar'},
+    ],
+    tip:'💡 Si no encuentras la app en tu tienda, escríbenos por WhatsApp — te enviamos el método alternativo para tu modelo.',
+    steps:[
+      {t:'Abre la tienda de apps de tu TV',d:'<strong>Samsung</strong> → Samsung App Store · <strong>LG</strong> → LG Content Store · <strong>Sony / Android TV</strong> → Google Play Store'},
+      {t:'Busca e instala la aplicación',d:'Escribe: <strong>IPTV Smarters</strong> o <strong>TiviMate</strong> o <strong>Xtream Player</strong>. Instala la primera que encuentres disponible.'},
+      {t:'Abre la app → Agregar cuenta',d:'Selecciona <strong>"Agregar cuenta"</strong> → <strong>"Xtream Codes API"</strong>. Necesitarás: URL, usuario y contraseña.'},
+      {t:'Solicita tus datos por WhatsApp',d:'Te enviamos en minutos: <strong>URL del servidor</strong> + <strong>usuario</strong> + <strong>contraseña</strong> personalizados.'},
+      {t:'¡Ingresa los datos y disfruta!',d:'Completa los 3 campos, espera que carguen los canales y ya tienes acceso a todo el catálogo.'},
     ]
   },
   firestick:{
-    links:[
-      {icon:'🟠',label:'Instalar Downloader (Amazon)',url:'https://www.amazon.com/dp/B01N0BP507',copy:false},
+    icon:'🔥',name:'Fire Stick',glow:'rgba(192,38,211,.6)',
+    dl:[
+      {ico:'🟠',txt:'Instalar Downloader (Amazon)',url:'https://www.amazon.com/dp/B01N0BP507'},
+    ],
+    tip:'⚠️ Activa "Apps de fuentes desconocidas" en configuración. Es seguro — es solo un permiso de instalación.',
+    steps:[
+      {t:'Activa fuentes desconocidas',d:'<strong>Configuración → Mi Fire TV → Opciones para desarrolladores → Apps de fuentes desconocidas → Activar</strong>'},
+      {t:'Instala Downloader desde Amazon Store',d:'Busca <strong>"Downloader"</strong> (ícono naranja, gratuita). Descárgala e instálala.'},
+      {t:'Abre Downloader → URL',d:'Toca <strong>"URL"</strong> en el menú. Escribe el enlace que te enviamos por WhatsApp.'},
+      {t:'Instala la app automáticamente',d:'Se descarga e instala sola. Al terminar presiona <strong>"Open"</strong> para abrirla.'},
+      {t:'Solicita tus datos y empieza',d:'Escríbenos por WhatsApp → te enviamos <strong>usuario + contraseña + URL</strong> en minutos.'},
     ]
   },
   androidtv:{
-    links:[
-      {icon:'▶',label:'IPTV Smarters Pro (Play)',url:'https://play.google.com/store/search?q=iptv+smarters+pro&c=apps',copy:false},
-      {icon:'▶',label:'TiviMate (Play)',url:'https://play.google.com/store/search?q=tivimate&c=apps',copy:false},
+    icon:'🤖',name:'Android TV / Box',glow:'rgba(34,197,94,.55)',
+    dl:[
+      {ico:'▶',txt:'IPTV Smarters Pro (Play)',url:'https://play.google.com/store/search?q=iptv+smarters+pro&c=apps'},
+      {ico:'▶',txt:'TiviMate (Play)',url:'https://play.google.com/store/search?q=tivimate&c=apps'},
+    ],
+    tip:'💡 Chromecast con Google TV: mismos pasos desde Google Play. También funciona.',
+    steps:[
+      {t:'Abre Google Play Store',d:'En tu Android TV o TV Box, busca y abre <strong>Google Play Store</strong>.'},
+      {t:'Instala IPTV Smarters Pro',d:'Busca <strong>"IPTV Smarters Pro"</strong> o <strong>"TiviMate"</strong> e instala la app.'},
+      {t:'Abre → Agregar usuario → Xtream',d:'Selecciona <strong>"Agregar usuario"</strong> → <strong>"Xtream Codes API"</strong>.'},
+      {t:'Solicita tus datos por WhatsApp',d:'Te enviamos URL, usuario y contraseña en minutos.'},
+      {t:'Ingresa los datos y empieza',d:'Completa los campos, carga las listas y disfruta todo el contenido latino.'},
     ]
   },
   android:{
-    links:[
-      {icon:'▶',label:'IPTV Smarters Pro (Play)',url:'https://play.google.com/store/search?q=iptv+smarters+pro&c=apps',copy:false},
+    icon:'📱',name:'Android',glow:'rgba(34,197,94,.55)',
+    dl:[
+      {ico:'▶',txt:'IPTV Smarters Pro (Play Store)',url:'https://play.google.com/store/search?q=iptv+smarters+pro&c=apps'},
+    ],
+    tip:'💡 Compatible con Android 6.0 o superior. Funciona en celular y tablet. Sin costo adicional.',
+    steps:[
+      {t:'Descarga IPTV Smarters Pro',d:'Abre <strong>Google Play Store</strong> → busca <strong>"IPTV Smarters Pro"</strong> → instala gratis.'},
+      {t:'Abre → Xtream Codes API',d:'Toca <strong>"Iniciar sesión con Xtream Codes API"</strong> en la pantalla de inicio.'},
+      {t:'Solicita tus datos',d:'Escríbenos por WhatsApp → te enviamos <strong>URL + usuario + contraseña</strong> en minutos.'},
+      {t:'Ingresa los 3 datos recibidos',d:'Completa los campos y presiona <strong>"Agregar usuario"</strong>.'},
+      {t:'¡Fútbol y más en tu Android!',d:'Navega canales, películas y series directo desde la app.'},
     ]
   },
   ios:{
-    links:[
-      {icon:'🍎',label:'IPTV Smarters Pro (App Store)',url:'https://apps.apple.com/search?term=iptv+smarters+pro',copy:false},
-      {icon:'🍎',label:'GSE Smart IPTV (App Store)',url:'https://apps.apple.com/search?term=gse+smart+iptv',copy:false},
+    icon:'🍎',name:'iPhone · iPad · Apple TV',glow:'rgba(200,200,255,.4)',
+    dl:[
+      {ico:'🍎',txt:'IPTV Smarters Pro (App Store)',url:'https://apps.apple.com/search?term=iptv+smarters+pro'},
+      {ico:'🍎',txt:'GSE Smart IPTV (App Store)',url:'https://apps.apple.com/search?term=gse+smart+iptv'},
+    ],
+    tip:'💡 Apple TV: usa la misma app del iPhone. Inicia sesión con tu Apple ID y sincroniza automáticamente.',
+    steps:[
+      {t:'Abre la App Store de Apple',d:'En tu <strong>iPhone, iPad o Apple TV</strong> abre la App Store.'},
+      {t:'Busca e instala la app',d:'Escribe <strong>"IPTV Smarters Pro"</strong> o <strong>"GSE Smart IPTV"</strong> e instala.'},
+      {t:'Abre → Agregar lista',d:'Selecciona <strong>"Agregar lista por Xtream API"</strong> o <strong>"Add URL"</strong>.'},
+      {t:'Solicita tus datos',d:'Escríbenos → te enviamos <strong>usuario + contraseña + URL</strong> del servidor.'},
+      {t:'¡Listo en tu iPhone!',d:'Ingresa los datos, carga los canales y disfruta todo el catálogo latino.'},
     ]
   },
   pc:{
-    links:[
-      {icon:'💻',label:'Descargar VLC (videolan.org)',url:'https://www.videolan.org/vlc/',copy:false},
+    icon:'💻',name:'PC · Mac',glow:'rgba(0,224,255,.5)',
+    dl:[
+      {ico:'💻',txt:'Descargar VLC (Windows)',url:'https://www.videolan.org/vlc/download-windows.html'},
+      {ico:'🍎',txt:'Descargar VLC (Mac)',url:'https://www.videolan.org/vlc/download-macosx.html'},
+    ],
+    tip:'💡 También puedes ver desde el navegador web con el link M3U personalizado que te enviamos. Sin instalar nada.',
+    steps:[
+      {t:'Descarga VLC Media Player',d:'Ve a <strong>videolan.org</strong> → descarga <strong>VLC</strong> gratis para Windows, Mac o Linux.'},
+      {t:'Abre VLC → Medio → URL de red',d:'En VLC: <strong>Medio → Abrir URL de red</strong> · Atajo: <strong>Ctrl+N</strong> (Win) / <strong>Cmd+N</strong> (Mac)'},
+      {t:'Solicita tu lista personalizada',d:'Escríbenos → te enviamos tu <strong>enlace M3U personalizado</strong> de canales.'},
+      {t:'Pega el enlace y reproduce',d:'Copia y pega el enlace recibido en VLC → <strong>"Reproducir"</strong>.'},
+      {t:'Navega todos tus canales',d:'Abre la <strong>Lista de reproducción</strong> (Ctrl+L) para ver el catálogo completo.'},
     ]
-  },
+  }
 };
 
-const DEVS={
-  smarttv:{icon:'📺',name:'Smart TV',glow:'rgba(0,220,255,.55)',c1:['#22d47a','ONLINE'],c2:['#f5c842','3 MIN'],c3:['#00dcff','5 PASOS'],
-    tip:'💡 Si no encuentras la app, escríbenos por WhatsApp — te enviamos el método alternativo para tu modelo exacto.',
-    steps:[
-      {t:'Abre la tienda de apps de tu TV',d:'<strong>Samsung</strong>: Samsung App Store · <strong>LG</strong>: LG Content Store · <strong>Sony</strong>: Google Play Store'},
-      {t:'Busca e instala la app',d:'Escribe: <strong>IPTV Smarters</strong> · <strong>TiviMate</strong> · <strong>Xtream Player</strong>. Instala la primera disponible.'},
-      {t:'Abre la app y selecciona Xtream API',d:'Elige <strong>"Agregar cuenta"</strong> → <strong>"Xtream Codes API"</strong>. Necesitarás URL, usuario y contraseña.'},
-      {t:'Solicita tus datos por WhatsApp',d:'Te enviamos en minutos: <strong>URL del servidor + usuario + contraseña</strong> personalizados para ti.'},
-      {t:'¡Listo! Ingresa los datos y disfruta',d:'Completa los campos, espera que carguen los canales y ya tienes acceso a todo el contenido.'},
-    ]},
-  firestick:{icon:'🔥',name:'Fire Stick',glow:'rgba(217,70,239,.55)',c1:['#22d47a','ONLINE'],c2:['#f5c842','3 MIN'],c3:['#d946ef','5 PASOS'],
-    tip:'⚠️ Necesitas activar "Apps de fuentes desconocidas". Es seguro y necesario — solo es un permiso de instalación.',
-    steps:[
-      {t:'Activa fuentes desconocidas',d:'Ve a: <strong>Configuración → Mi Fire TV → Opciones para desarrolladores → Apps de fuentes desconocidas → Activar</strong>'},
-      {t:'Descarga e instala Downloader',d:'Abre Amazon Store, busca <strong>"Downloader"</strong> (ícono naranja, gratis). Instálala.'},
-      {t:'Abre Downloader y escribe la URL',d:'Toca <strong>"URL"</strong> en el menú lateral. Escribe el enlace que te enviamos por WhatsApp.'},
-      {t:'Instala la aplicación de streaming',d:'Se descargará e instalará sola. Al terminar presiona <strong>"Open"</strong> para abrirla.'},
-      {t:'Ingresa tus datos y empieza a ver',d:'Escríbenos por WhatsApp — te enviamos <strong>usuario, contraseña y URL</strong> en minutos.'},
-    ]},
-  androidtv:{icon:'🤖',name:'Android TV / Box',glow:'rgba(34,212,122,.5)',c1:['#22d47a','ONLINE'],c2:['#f5c842','3 MIN'],c3:['#00dcff','5 PASOS'],
-    tip:'💡 Chromecast con Google TV: estos mismos pasos funcionan desde Google Play.',
-    steps:[
-      {t:'Abre Google Play Store',d:'En tu Android TV o TV Box, busca y abre <strong>Google Play Store</strong>.'},
-      {t:'Instala IPTV Smarters Pro o TiviMate',d:'Busca <strong>"IPTV Smarters Pro"</strong> o <strong>"TiviMate"</strong> e instala la app elegida.'},
-      {t:'Abre y agrega cuenta',d:'Selecciona <strong>"Agregar usuario"</strong> → <strong>"Xtream Codes API"</strong>.'},
-      {t:'Solicita tus datos',d:'Escríbenos por WhatsApp. Te enviamos URL, usuario y contraseña en minutos.'},
-      {t:'Ingresa los datos y listo',d:'Completa los campos, carga las listas y empieza a disfrutar todo el contenido.'},
-    ]},
-  android:{icon:'📱',name:'Android',glow:'rgba(34,212,122,.5)',c1:['#22d47a','ONLINE'],c2:['#f5c842','3 MIN'],c3:['#00dcff','5 PASOS'],
-    tip:'💡 Compatible con Android 6.0 o superior. Sin costo adicional. Funciona en celular y tablet.',
-    steps:[
-      {t:'Descarga IPTV Smarters Pro',d:'Abre <strong>Google Play Store</strong> → busca <strong>"IPTV Smarters Pro"</strong>. Es la app azul con ícono de play. Instala gratis.'},
-      {t:'Abre e inicia sesión',d:'Toca <strong>"Iniciar sesión con Xtream Codes API"</strong> en la pantalla de inicio.'},
-      {t:'Solicita tus datos por WhatsApp',d:'Escríbenos — te enviamos <strong>URL, usuario y contraseña</strong> personalizados en minutos.'},
-      {t:'Ingresa los 3 datos recibidos',d:'Completa los campos con los datos recibidos y presiona <strong>"Agregar usuario"</strong>.'},
-      {t:'¡Fútbol y más en tu Android!',d:'Navega canales, películas y series directo desde la pantalla principal de la app.'},
-    ]},
-  ios:{icon:'🍎',name:'iPhone · iPad · Apple TV',glow:'rgba(200,200,255,.4)',c1:['#22d47a','ONLINE'],c2:['#f5c842','3 MIN'],c3:['#00dcff','5 PASOS'],
-    tip:'💡 En Apple TV usa la misma app del iPhone — inicia sesión con tu Apple ID y sincroniza automáticamente.',
-    steps:[
-      {t:'Abre la App Store',d:'En tu <strong>iPhone, iPad o Apple TV</strong> abre la App Store de Apple.'},
-      {t:'Instala la app de streaming',d:'Busca <strong>"IPTV Smarters Pro"</strong> o <strong>"GSE Smart IPTV"</strong> e instala la disponible.'},
-      {t:'Abre y configura',d:'Selecciona <strong>"Agregar lista por Xtream API"</strong> o <strong>"Add URL"</strong> según la app.'},
-      {t:'Pide tus datos por WhatsApp',d:'Te enviamos <strong>usuario, contraseña y URL</strong> del servidor en minutos.'},
-      {t:'¡Listo! Disfruta desde tu iPhone',d:'Ingresa los datos, carga los canales y accede a todo el catálogo latino.'},
-    ]},
-  pc:{icon:'💻',name:'PC · Mac',glow:'rgba(0,220,255,.45)',c1:['#22d47a','ONLINE'],c2:['#f5c842','3 MIN'],c3:['#00dcff','5 PASOS'],
-    tip:'💡 En PC también puedes ver desde el navegador web con el link M3U personalizado que te enviamos. Sin instalar nada.',
-    steps:[
-      {t:'Descarga VLC Media Player',d:'Ve a <strong>videolan.org</strong> y descarga <strong>VLC</strong> gratis para Windows, Mac o Linux.'},
-      {t:'Abre VLC → Medio → URL de red',d:'En VLC: <strong>Medio → Abrir URL de red</strong> · Atajo: <strong>Ctrl+N</strong> (Windows) / <strong>Cmd+N</strong> (Mac)'},
-      {t:'Solicita tu lista personalizada',d:'Escríbenos por WhatsApp — te enviamos el <strong>enlace M3U</strong> de tus canales.'},
-      {t:'Pega el enlace y reproduce',d:'Copia y pega el enlace recibido en el campo de VLC. Presiona <strong>"Reproducir"</strong>.'},
-      {t:'Navega tu catálogo completo',d:'Abre la <strong>Lista de reproducción</strong> (Ctrl+L) para ver y navegar todos los canales.'},
-    ]},
-};
-
-function copyText(text,btn){
-  navigator.clipboard.writeText(text).then(()=>{
-    const orig=btn.innerHTML;
-    btn.classList.add('copied');
-    btn.innerHTML='✓ Copiado';
-    setTimeout(()=>{btn.classList.remove('copied');btn.innerHTML=orig},2000);
+function copyWA(n,btn){
+  navigator.clipboard.writeText(WA(n)).then(()=>{
+    const o=btn.innerHTML;btn.innerHTML='✓ Copiado';btn.style.background='rgba(34,197,94,.15)';btn.style.borderColor='rgba(34,197,94,.4)';btn.style.color='#22c55e';
+    setTimeout(()=>{btn.innerHTML=o;btn.style.background='';btn.style.borderColor='';btn.style.color=''},2200);
   });
 }
 
-function renderGuide(id){
-  const d=DEVS[id];const a=APPS[id];if(!d)return'';
+function render(id){
+  const d=D[id];if(!d)return'';
   const steps=d.steps.map((s,i)=>`
     <div class="step">
-      <div class="step-n${i===d.steps.length-1?' done':''}">${i+1}</div>
-      <div>
-        <div class="step-title">${s.t}</div>
-        <div class="step-desc">${s.d}</div>
+      <div class="step-left"><div class="step-num${i===d.steps.length-1?' done':''}">${i+1}</div></div>
+      <div class="step-body">
+        <div class="step-t">${s.t}</div>
+        <div class="step-d">${s.d}</div>
       </div>
     </div>`).join('');
 
-  const linksHtml=a&&a.links.length?`
-    <div class="app-bar">
-      <div class="app-bar-title">Descarga la app directamente</div>
-      <div class="app-links">
-        ${a.links.map(l=>`<a class="app-link" href="${l.url}" target="_blank" rel="noopener"><span class="app-link-icon">${l.icon}</span>${l.label}</a>`).join('')}
-        <button class="copy-btn" onclick="copyText('${WA(d.name)}',this)">📋 Copiar link WhatsApp</button>
+  const dlHtml=d.dl.length?`
+    <div class="dl-bar">
+      <div class="dl-label">Descarga la app directamente</div>
+      <div class="dl-links">
+        ${d.dl.map(l=>`<a class="dl-btn" href="${l.url}" target="_blank" rel="noopener"><span class="dl-btn-icon">${l.ico}</span>${l.txt}</a>`).join('')}
+        <button class="dl-btn" onclick="copyWA('${d.name.replace(/'/g,"\\'")}',this)" style="cursor:pointer;background:rgba(234,179,8,.07);border-color:rgba(234,179,8,.25);color:rgba(234,179,8,.85)">📋 Copiar link WhatsApp</button>
       </div>
     </div>`:'';
 
   return `
-  <div class="gp on" role="tabpanel">
-    <div class="gp-layout">
-      <div class="gp-visual">
-        <div class="gp-vis-top">
-          <div class="gp-vis-rings">
-            <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
-          </div>
-          <span class="gp-vis-icon" style="--glow:${d.glow}">${d.icon}</span>
+  <div class="gp on">
+    <div class="gpl">
+      <div class="gvis">
+        <div class="gvis-top" style="background:linear-gradient(135deg,var(--ink3),var(--ink2))">
+          <div class="gvis-rings"><div class="gring gr1"></div><div class="gring gr2"></div><div class="gring gr3"></div></div>
+          <span class="gvis-icon" style="--ggl:${d.glow}">${d.icon}</span>
         </div>
-        <div class="gp-vis-info">
-          <div class="gvi"><div class="gvi-v gvi-c">${d.c1[0]}</div><div class="gvi-l">${d.c1[1]}</div></div>
-          <div class="gvi"><div class="gvi-v gvi-au">${d.c2[0]}</div><div class="gvi-l">${d.c2[1]}</div></div>
-          <div class="gvi"><div class="gvi-v gvi-cy">${d.c3[0]}</div><div class="gvi-l">${d.c3[1]}</div></div>
+        <div class="gvis-bot">
+          <div class="gvb"><div class="gvb-v gv-gr">ONLINE</div><div class="gvb-l">Estado</div></div>
+          <div class="gvb"><div class="gvb-v gv-g">3 MIN</div><div class="gvb-l">Activación</div></div>
+          <div class="gvb"><div class="gvb-v gv-c">5 PASOS</div><div class="gvb-l">Guía</div></div>
         </div>
       </div>
-      <div class="gp-steps">
-        <h3 style="font-family:'Syne',sans-serif;font-size:clamp(16px,2.5vw,22px);font-weight:800;margin-bottom:14px;">${d.icon} Instalar en ${d.name}</h3>
-        ${linksHtml}
-        ${d.tip?`<div class="tip-box"><span class="ti">${d.tip.slice(0,2)}</span><span>${d.tip.slice(2)}</span></div>`:''}
-        <div class="steps-list">${steps}</div>
-        <a class="guide-wa" href="${WA(d.name)}" target="_blank" rel="noopener">
-          <span class="gwa-icon">💬</span>
-          <div class="gwa-text">
+      <div class="gsteps">
+        ${dlHtml}
+        ${d.tip?`<div class="tip" style="margin:0"><span class="tii">${d.tip.slice(0,2)}</span><span>${d.tip.slice(2)}</span></div>`:''}
+        <div style="padding:0 0 4px"><h3 style="font-family:'Syne',sans-serif;font-size:clamp(15px,2.5vw,20px);font-weight:800;padding:16px 20px 0;margin-bottom:0">${d.icon} Instalar en ${d.name}</h3></div>
+        <div class="steps-wrap">${steps}</div>
+        <a class="gwa" href="${WA(d.name)}" target="_blank" rel="noopener">
+          <span class="gwa-ic">💬</span>
+          <div class="gwa-t">
             <strong>Solicitar acceso para ${d.name}</strong>
             <span>Te respondemos en minutos · Sin pagos adelantados</span>
           </div>
@@ -1003,34 +923,32 @@ function renderGuide(id){
   </div>`;
 }
 
-function pickDev(id,el){
+function pick(id,el){
   document.querySelectorAll('.dc').forEach(c=>{c.classList.remove('on');c.setAttribute('aria-pressed','false')});
   const t=el||document.querySelector(`[data-dev="${id}"]`);
   if(t){t.classList.add('on');t.setAttribute('aria-pressed','true')}
-  document.getElementById('guidePanel').innerHTML=renderGuide(id);
-  document.getElementById('swa').href=WA(DEVS[id]?.name||id);
-  if(el&&window.innerWidth<760)setTimeout(()=>document.getElementById('guidePanel').scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+  document.getElementById('gp').innerHTML=render(id);
+  document.getElementById('swa').href=WA(D[id]?.name||id);
+  if(el&&window.innerWidth<800)setTimeout(()=>document.getElementById('gp').scrollIntoView({behavior:'smooth',block:'nearest'}),80);
 }
 
-function detectDevice(){
+function detectDev(){
   const ua=navigator.userAgent.toLowerCase();
-  let id='smarttv',label='Smart TV',emoji='📺';
-  if(/iphone|ipad|ipod/.test(ua)){id='ios';label='iPhone / iPad';emoji='🍎'}
-  else if(/macintosh|mac os x/.test(ua)&&!/mobile/.test(ua)){id='pc';label='Mac';emoji='💻'}
-  else if(/windows/.test(ua)&&!/android/.test(ua)){id='pc';label='PC Windows';emoji='💻'}
-  else if(/linux/.test(ua)&&!/android/.test(ua)){id='pc';label='PC Linux';emoji='💻'}
-  else if(/silk|kftt|kfjwi|kfthwi|kfarwi/.test(ua)){id='firestick';label='Fire Stick';emoji='🔥'}
-  else if(/aftt|aftn|firetv|fire tv/.test(ua)){id='firestick';label='Fire TV';emoji='🔥'}
-  else if(/androidtv|smart-tv|googletv/.test(ua)){id='androidtv';label='Android TV';emoji='🤖'}
-  else if(/android/.test(ua)){id='android';label='Android';emoji='📱'}
-
-  document.getElementById('detectTxt').innerHTML=`${emoji} Detectamos: <strong>${label}</strong> — guía lista. Cambia arriba si necesitas otro dispositivo.`;
+  let id='smarttv',lb='Smart TV',em='📺';
+  if(/iphone|ipad|ipod/.test(ua)){id='ios';lb='iPhone / iPad';em='🍎'}
+  else if(/macintosh|mac os x/.test(ua)&&!/mobile/.test(ua)){id='pc';lb='Mac';em='💻'}
+  else if(/windows/.test(ua)&&!/android/.test(ua)){id='pc';lb='PC Windows';em='💻'}
+  else if(/linux/.test(ua)&&!/android/.test(ua)){id='pc';lb='PC Linux';em='💻'}
+  else if(/silk|kftt|kfjwi|kfthwi|kfarwi/.test(ua)){id='firestick';lb='Fire Stick';em='🔥'}
+  else if(/aftt|aftn|firetv|fire tv/.test(ua)){id='firestick';lb='Fire TV';em='🔥'}
+  else if(/androidtv|smart-tv|googletv/.test(ua)){id='androidtv';lb='Android TV';em='🤖'}
+  else if(/android/.test(ua)){id='android';lb='Android';em='📱'}
+  document.getElementById('dtxt').innerHTML=`${em} Detectamos: <strong>${lb}</strong> — guía lista. Cambia arriba si usas otro dispositivo.`;
   document.querySelectorAll('.dc').forEach(c=>{c.classList.remove('detected');if(c.dataset.dev===id)c.classList.add('detected')});
-  pickDev(id,null);
+  pick(id,null);
 }
-
-window.addEventListener('DOMContentLoaded',detectDevice);
-document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('.dc')){e.preventDefault();const t=e.target.closest('.dc');pickDev(t.dataset.dev,t)}});
+window.addEventListener('DOMContentLoaded',detectDev);
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('.dc')){e.preventDefault();const t=e.target.closest('.dc');pick(t.dataset.dev,t)}});
 </script>
 
 <!-- GSAP -->
@@ -1038,32 +956,29 @@ document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.tar
 function ig(){
   if(typeof gsap==='undefined'){setTimeout(ig,100);return}
   gsap.registerPlugin(ScrollTrigger);
-  window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('solid',window.scrollY>50)},{passive:true});
-
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',window.scrollY>50),{passive:true});
   // Hero
-  gsap.from('.hero-h1 .lni',{y:70,opacity:0,rotateX:-20,duration:.95,stagger:.12,ease:'power4.out',delay:.2});
-  gsap.from('.htag',{opacity:0,y:16,duration:.7,delay:.1});
-  gsap.from('.hero-sub',{opacity:0,y:24,duration:.8,delay:.82});
-  gsap.from('.hero-ctas',{opacity:0,y:20,duration:.7,delay:.96});
-  gsap.from('.hbadges',{opacity:0,y:14,duration:.6,delay:1.1});
-
+  gsap.from('h1 .lni',{y:70,opacity:0,rotateX:-20,duration:.95,stagger:.12,ease:'power4.out',delay:.2});
+  gsap.from('.hero-tag',{opacity:0,y:16,duration:.6,delay:.1});
+  gsap.from('.hero-sub',{opacity:0,y:22,duration:.75,delay:.82});
+  gsap.from('.hero-ctas',{opacity:0,y:18,duration:.7,delay:.96});
+  gsap.from('.hero-bgs',{opacity:0,y:14,duration:.6,delay:1.08});
+  gsap.from('.hero-stats',{opacity:0,y:30,duration:.7,ease:'power3.out',delay:1.2});
   // Reveals
-  const rvMap={'.rv':{y:34},'.rv-l':{x:-34},'.rv-r':{x:34},'.rv-s':{scale:.84}};
-  Object.entries(rvMap).forEach(([s,ex])=>{
+  const rm={'.rv':{y:34},'.rvl':{x:-34},'.rvr':{x:34},'.rvs':{scale:.86}};
+  Object.entries(rm).forEach(([s,ex])=>{
     document.querySelectorAll(s).forEach(el=>{
       gsap.from(el,{...ex,opacity:0,duration:.85,ease:ex.scale?'back.out(1.3)':'power3.out',scrollTrigger:{trigger:el,start:'top 90%',once:true}});
     });
   });
-
   // Cards
-  document.querySelectorAll('.shelf-row').forEach(row=>{
-    gsap.from(row.querySelectorAll('.cc'),{opacity:0,x:20,stagger:.05,duration:.65,ease:'power2.out',scrollTrigger:{trigger:row,start:'top 92%',once:true}});
+  document.querySelectorAll('.srow').forEach(r=>{
+    gsap.from(r.querySelectorAll('.cc'),{opacity:0,x:20,stagger:.05,duration:.65,ease:'power2.out',scrollTrigger:{trigger:r,start:'top 92%',once:true}});
   });
-  gsap.from('.fc',{opacity:0,y:38,stagger:.07,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.feat-grid',start:'top 87%',once:true}});
-  gsap.from('.dc',{opacity:0,y:22,scale:.92,stagger:.06,duration:.65,ease:'back.out(1.3)',scrollTrigger:{trigger:'.dev-grid',start:'top 91%',once:true}});
-  gsap.from('.stat',{opacity:0,y:20,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'.stats-bar',start:'top 90%',once:true}});
-
-  // Speedometer
+  gsap.from('.fc',{opacity:0,y:36,stagger:.07,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.feat-grid',start:'top 87%',once:true}});
+  gsap.from('.dc',{opacity:0,y:20,scale:.92,stagger:.06,duration:.65,ease:'back.out(1.3)',scrollTrigger:{trigger:'.dg',start:'top 91%',once:true}});
+  gsap.from('.hstat',{opacity:0,y:20,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'.hero-stats',start:'top 90%',once:true}});
+  // Speedo
   ScrollTrigger.create({trigger:'#sArc',start:'top 80%',once:true,onEnter(){
     const o={v:0};
     gsap.to(o,{v:20,duration:2.2,ease:'power2.out',onUpdate(){
@@ -1075,6 +990,5 @@ function ig(){
 }
 ig();
 </script>
-
 </body>
 </html>
