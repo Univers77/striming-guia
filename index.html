@@ -4,18 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <meta name="theme-color" content="#03060f">
-<title>Tu Latino TV Max — Activa en 3 Minutos</title>
-<meta name="description" content="Instala Tu Latino TV Max. Fútbol boliviano en vivo, +12.000 canales, +51.000 películas. Guía visual para Fire Stick, Smart TV, Android, iPhone y PC.">
+<title>Tu Latino TV Max — Streaming Premium Mundialero</title>
+<meta name="description" content="Tu Latino TV Max: experiencia premium para temporada mundialera con fútbol en vivo, +12.000 canales, +51.000 películas HD, guía de instalación y soporte humano por WhatsApp.">
+<meta name="keywords" content="Tu Latino TV Max, streaming latino, fútbol en vivo, canales en vivo, películas HD, series, Fire Stick, Smart TV, prueba gratis streaming, temporada mundialera">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Tu Latino TV Max">
+<link rel="canonical" href="https://univers77.github.io/striming-guia/">
+<meta property="og:title" content="Tu Latino TV Max — Prueba gratis tu pantalla premium">
+<meta property="og:description" content="Fútbol en vivo, +12K canales, +51K películas HD y soporte humano. Activa 1 día gratis por WhatsApp en minutos.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://univers77.github.io/striming-guia/">
+<meta property="og:site_name" content="Tu Latino TV Max">
+<meta property="og:locale" content="es_BO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tu Latino TV Max — Streaming premium mundialero">
+<meta name="twitter:description" content="Activa 1 día gratis. Deportes, películas, series y guía por dispositivo con soporte directo por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Tu Latino TV Max",
+  "url": "https://univers77.github.io/striming-guia/",
+  "description": "Streaming latino premium con deportes en vivo, canales, películas, series y soporte por WhatsApp.",
+  "sameAs": [
+    "https://www.instagram.com/tulatinomax/",
+    "https://www.facebook.com/profile.php?id=61590454563401"
+  ],
+  "areaServed": "Latinoamérica",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "url": "https://wa.me/59169717743"
+  }
+}
+</script>
 <style>
 /* ═══════════════ TOKENS ═══════════════ */
 :root{
   --ink:#03060f; --ink2:#060c1c; --ink3:#0a1228;
-  --c:#00e0ff; --m:#c026d3; --g:#eab308; --gr:#22c55e; --wa:#25d366;
+  --c:#00e0ff; --m:#c026d3; --g:#f5c542; --gr:#22c55e; --wa:#25d366; --rj:#ef233c;
   --fg:#e2e8ff; --fg2:rgba(226,232,255,.55); --fg3:rgba(226,232,255,.28);
   --bdr:rgba(255,255,255,.07); --bdr-c:rgba(0,224,255,.22);
   --r:14px; --r2:10px;
@@ -23,14 +55,20 @@
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',-apple-system,sans-serif;background:var(--ink);color:var(--fg);overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-top:var(--st)}
+body{font-family:'Inter',-apple-system,sans-serif;background:radial-gradient(circle at 50% -10%,rgba(0,224,255,.13),transparent 34%),radial-gradient(circle at 86% 8%,rgba(239,35,60,.1),transparent 24%),var(--ink);color:var(--fg);overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-top:var(--st)}
 a{text-decoration:none;color:inherit}
+a:focus-visible,button:focus-visible,[role="button"]:focus-visible{outline:2px solid var(--g);outline-offset:4px}
+.skip{position:fixed;top:8px;left:8px;z-index:1200;background:var(--g);color:#05070f;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:900;transform:translateY(-140%);transition:transform .2s}
+.skip:focus{transform:translateY(0)}
 
 /* ═══════════════ NAV ═══════════════ */
 .nav{position:fixed;inset:0 0 auto;z-index:900;height:58px;padding:0 clamp(16px,4vw,52px);display:flex;align-items:center;justify-content:space-between;transition:background .35s,box-shadow .35s}
 .nav.s{background:rgba(3,6,15,.97);backdrop-filter:blur(24px);box-shadow:0 1px 0 var(--bdr)}
 .logo{font-family:'Syne',sans-serif;font-size:clamp(13px,1.8vw,16px);font-weight:800;letter-spacing:-.2px}
 .logo b{color:var(--c)}.logo em{color:var(--m);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:18px;margin-left:auto;margin-right:10px}
+.nav-links a{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(226,232,255,.62);transition:color .2s}
+.nav-links a:hover{color:var(--g)}
 .nav-wa{display:inline-flex;align-items:center;gap:7px;background:var(--wa);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700;transition:transform .18s,box-shadow .18s}
 .nav-wa:hover{transform:scale(1.05);box-shadow:0 0 22px rgba(37,211,102,.5)}
 
@@ -103,13 +141,14 @@ h1 .c3{color:var(--fg)}
 .hbgs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .hbg{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--fg3);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:6px 14px}
 .hd{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.hstats{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:100%;margin:0;background:rgba(0,224,255,.05);border-top:1px solid rgba(0,224,255,.12);border-bottom:none;border-radius:0;overflow:hidden}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:100%;margin:0;background:linear-gradient(180deg,#0a1724 0%,#08131f 100%);border-top:1px solid rgba(0,224,255,.18);border-bottom:1px solid rgba(0,224,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 10px 36px rgba(0,0,0,.28);overflow:hidden}
 @media(max-width:560px){.hstats{grid-template-columns:repeat(2,1fr)}}
-.hs{padding:18px 12px;text-align:center;border-right:1px solid rgba(0,224,255,.08)}
+.hs{position:relative;padding:20px 12px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.hs::after{content:'';position:absolute;left:18%;right:18%;bottom:0;height:1px;background:linear-gradient(90deg,transparent,currentColor,transparent);opacity:.32}
 .hs:last-child{border-right:none}
 @media(max-width:560px){.hs:nth-child(2){border-right:none}}
-.hs-v{font-family:'Syne',sans-serif;font-size:clamp(20px,3vw,30px);font-weight:800;line-height:1;margin-bottom:3px}
-.hs-l{font-size:10px;font-weight:600;color:var(--fg3);text-transform:uppercase;letter-spacing:.8px}
+.hs-v{font-family:'Syne',sans-serif;font-size:clamp(28px,4.4vw,44px);font-weight:800;line-height:.86;margin-bottom:8px;letter-spacing:-1.2px;text-transform:lowercase;text-shadow:0 0 22px currentColor}
+.hs-l{font-size:10px;font-weight:900;color:rgba(226,232,255,.35);text-transform:uppercase;letter-spacing:.12em}
 .sg{color:var(--gr)}.sc{color:var(--c)}.sm{color:var(--m)}.sw{color:var(--wa)}
 
 /* ═══════════════ TICKER ═══════════════ */
@@ -119,6 +158,57 @@ h1 .c3{color:var(--fg)}
 .tki em{color:var(--fg);font-style:normal;font-weight:800;font-size:13px}
 .td{width:4px;height:4px;border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);animation:bk 2s ease infinite}
 @keyframes tkRun{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ═══════════════ MATCH ROOM ═══════════════ */
+.match-room{position:relative;padding:clamp(56px,8vw,98px) clamp(16px,5vw,64px);background:linear-gradient(180deg,#03060f 0%,#071020 54%,#03060f 100%);overflow:hidden}
+.match-room::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 18%,rgba(0,224,255,.14),transparent 24%),radial-gradient(circle at 82% 38%,rgba(245,197,66,.12),transparent 22%),linear-gradient(90deg,transparent 0 48%,rgba(255,255,255,.045) 49% 51%,transparent 52% 100%);pointer-events:none}
+.match-inner{position:relative;z-index:1;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch}
+.match-copy,.match-panel{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.36);backdrop-filter:blur(18px)}
+.match-copy{padding:clamp(24px,4vw,42px)}
+.match-kicker{display:inline-flex;align-items:center;gap:8px;color:var(--g);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;margin-bottom:14px}
+.match-kicker::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--rj);box-shadow:0 0 14px var(--rj)}
+.match-copy h2{font-family:'Syne',sans-serif;font-size:clamp(30px,5vw,64px);line-height:.96;letter-spacing:-1.5px;text-transform:uppercase;margin-bottom:18px}
+.match-copy h2 em{font-style:normal;background:linear-gradient(110deg,var(--g),#fff,var(--c));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.match-copy p{color:var(--fg2);font-size:clamp(15px,1.6vw,18px);line-height:1.65;max-width:620px}
+.match-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.match-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(245,197,66,.26);background:rgba(245,197,66,.08);color:#ffe7a0;border-radius:999px;padding:9px 13px;font-size:12px;font-weight:800}
+.match-panel{padding:18px;display:grid;gap:12px}
+.score-card{position:relative;overflow:hidden;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,rgba(0,224,255,.13),rgba(192,38,211,.1));padding:18px}
+.score-top{display:flex;justify-content:space-between;gap:12px;color:rgba(226,232,255,.66);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;margin-bottom:22px}
+.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px}
+.team{text-align:center;font-family:'Syne',sans-serif;font-size:clamp(20px,3vw,34px);font-weight:800;text-transform:uppercase}
+.team span{display:block;margin-top:6px;font-family:'Inter',sans-serif;font-size:10px;color:var(--fg3);letter-spacing:.18em}
+.versus{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:rgba(3,6,15,.78);border:1px solid rgba(245,197,66,.28);color:var(--g);font-weight:900;box-shadow:0 0 28px rgba(245,197,66,.12)}
+.daily-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.daily{border:1px solid rgba(255,255,255,.08);background:rgba(3,6,15,.46);border-radius:12px;padding:14px;min-height:110px}
+.daily b{display:block;font-size:12px;color:#fff;margin-bottom:8px}
+.daily span{font-size:12px;color:var(--fg2);line-height:1.45}
+
+/* ═══════════════ MUNDIAL CINEMA ═══════════════ */
+.cinema-sec{position:relative;overflow:hidden;padding:clamp(58px,8vw,108px) clamp(16px,5vw,64px);background:#02040b}
+.cinema-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 14% 14%,rgba(239,35,60,.14),transparent 26%),radial-gradient(circle at 80% 10%,rgba(245,197,66,.13),transparent 22%),radial-gradient(circle at 50% 100%,rgba(0,224,255,.16),transparent 34%);pointer-events:none}
+.cinema-inner{position:relative;z-index:1;max-width:1180px;margin:0 auto}
+.cinema-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:24px}
+.cinema-head p{max-width:520px;color:var(--fg2);font-size:14px;line-height:1.65}
+.cinema-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:stretch}
+.cinema-stage{position:relative;min-height:360px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#000;box-shadow:0 34px 100px rgba(0,0,0,.55)}
+.cinema-stage video{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9;background:#000}
+.cinema-glass{position:absolute;inset:auto 18px 18px 18px;display:flex;align-items:end;justify-content:space-between;gap:16px;padding:16px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:linear-gradient(180deg,rgba(3,6,15,.28),rgba(3,6,15,.78));backdrop-filter:blur(16px)}
+.cinema-now{min-width:0}
+.cinema-label{display:inline-flex;align-items:center;gap:7px;color:var(--g);font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
+.cinema-label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--rj);box-shadow:0 0 12px var(--rj)}
+.cinema-now h3{font-family:'Syne',sans-serif;font-size:clamp(20px,3vw,36px);line-height:1;text-transform:uppercase;margin-bottom:6px}
+.cinema-now p{font-size:12px;color:rgba(226,232,255,.68);line-height:1.45}
+.cinema-sound{flex-shrink:0;border:1px solid rgba(37,211,102,.38);background:rgba(37,211,102,.13);color:#6dff9c;border-radius:999px;padding:10px 14px;font-size:12px;font-weight:900;cursor:pointer}
+.cinema-list{display:grid;gap:10px}
+.reel-card{position:relative;text-align:left;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);border-radius:12px;padding:14px;min-height:116px;color:var(--fg);cursor:pointer;overflow:hidden;transition:transform .2s,border-color .2s,background .2s}
+.reel-card::before{content:attr(data-num);position:absolute;right:12px;top:8px;font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:rgba(255,255,255,.055)}
+.reel-card:hover,.reel-card.on{transform:translateY(-3px);border-color:rgba(245,197,66,.42);background:rgba(245,197,66,.08)}
+.reel-card b{display:block;font-family:'Syne',sans-serif;font-size:18px;text-transform:uppercase;margin-bottom:7px}
+.reel-card span{display:block;font-size:12px;color:var(--fg2);line-height:1.45;max-width:235px}
+.reel-chip{display:inline-flex;margin-bottom:10px;border:1px solid rgba(0,224,255,.2);border-radius:999px;padding:4px 8px;color:var(--c);font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.cinema-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;color:var(--fg3);font-size:12px}
+.cinema-foot strong{color:var(--fg);font-weight:800}
 
 /* ═══════════════ GUIDE ═══════════════ */
 .guide-sec{background:var(--ink2);padding:clamp(52px,7vh,88px) clamp(16px,5vw,60px);position:relative;overflow:hidden}
@@ -361,7 +451,15 @@ svg.spd{width:100%;height:auto;max-width:220px;display:block;margin:0 auto 16px}
 .bwa-xl::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
 .bwa-xl:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 8px 60px rgba(37,211,102,.65)}.bwa-xl:hover::after{opacity:1}
 .fin-note{font-size:12px;color:var(--fg3)}
-footer{background:#01020a;border-top:1px solid var(--bdr);padding:24px 20px calc(24px + var(--sb));text-align:center}
+.social-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:760px;margin:28px auto 34px}
+.proof-card{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);border-radius:12px;padding:14px;text-align:left}
+.proof-card b{display:block;color:#fff;font-size:13px;margin-bottom:5px}
+.proof-card span{display:block;color:var(--fg2);font-size:12px;line-height:1.45}
+.social-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:18px}
+.social-link{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);border-radius:999px;padding:11px 16px;font-size:13px;font-weight:900;transition:transform .2s,border-color .2s,background .2s}
+.social-link:hover{transform:translateY(-2px);border-color:rgba(245,197,66,.42);background:rgba(245,197,66,.08)}
+.social-ig{color:#ff65d8}.social-fb{color:#78a8ff}
+footer{background:#01020a;border-top:1px solid var(--bdr);padding:30px 20px calc(28px + var(--sb));text-align:center}
 .fl{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;margin-bottom:8px}
 .fl b{color:var(--c)}.fl em{color:var(--m);font-style:normal}
 footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:0 auto}
@@ -373,15 +471,24 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
 @media(max-width:640px){h1.hh{font-size:clamp(30px,10.5vw,52px);letter-spacing:-1px;line-height:1.0}.gpl{gap:16px}}
 @media(max-width:400px){h1.hh{font-size:clamp(28px,10vw,44px);letter-spacing:-.5px}}
 @media(max-width:400px){.bp,.bwa{padding:13px 20px;font-size:13px}}
+@media(max-width:720px){.social-proof{grid-template-columns:1fr}.proof-card{text-align:center}}
+@media(max-width:860px){.nav-links{display:none}.match-inner,.cinema-grid{grid-template-columns:1fr}.daily-grid{grid-template-columns:1fr}.teams{grid-template-columns:1fr}.versus{margin:auto}.cinema-head{display:block}.cinema-stage{min-height:260px}.cinema-glass{position:relative;inset:auto;margin:10px;display:block}.cinema-sound{margin-top:12px;width:100%}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#guide">Saltar a la guía</a>
 <a class="swa" id="swa" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
 
 <nav class="nav" id="nav">
   <div class="logo">TU LATINO <b>TV</b> <em>MAX</em></div>
+  <div class="nav-links" aria-label="Navegación principal">
+    <a href="#match-room">Match Room</a>
+    <a href="#cinema">Cinema</a>
+    <a href="#demo">Demo</a>
+    <a href="#guide">Instalar</a>
+  </div>
   <a class="nav-wa" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> Prueba Gratis</a>
 </nav>
 
@@ -395,7 +502,7 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
       poster=""
       id="heroBgVideo"
     >
-      <source src="hero-ad.mp4" type="video/mp4">
+      <source src="hero-bg.mp4" type="video/mp4">
     </video>
   </div>
   <!-- Atmospheric BG gradient (fallback + blend) -->
@@ -403,20 +510,20 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
   <canvas id="pc" aria-hidden="true"></canvas>
   <div class="hvg" aria-hidden="true"></div>
   <div class="hero-inner">
-    <div class="htag">🔥 Activa en 3 Minutos</div>
+    <div class="htag">🏆 Mundial Edition · Activa en 3 Minutos</div>
     <h1 class="hh">
-      <span class="ln"><span class="lni c1">Tu pantalla lista</span></span>
-      <span class="ln"><span class="lni c2">para la temporada</span></span>
-      <span class="ln"><span class="lni c3">más grande</span></span>
+      <span class="ln"><span class="lni c1">Tu palco privado</span></span>
+      <span class="ln"><span class="lni c2">para vivirlo todo</span></span>
+      <span class="ln"><span class="lni c3">en modo premium</span></span>
     </h1>
-    <p class="hsub">⚽ Fútbol boliviano en vivo · 📺 +12.000 canales · 🍿 +51.000 películas HD · 🎞️ +12.000 series<br><strong>1 día de prueba gratis · Sin contrato · Soporte por WhatsApp</strong></p>
+    <p class="hsub">⚽ Fútbol y temporada mundialera en vivo · 📺 +12.000 canales · 🍿 +51.000 películas HD · 🎞️ +12.000 series<br><strong>Una landing que se siente exclusiva, útil y lista para usar todos los días.</strong></p>
     <div class="hctas">
       <a class="bp" href="#guide" onclick="document.getElementById('guide').scrollIntoView({behavior:'smooth'});return false"><span aria-hidden="true">📱</span> Ver guía de instalación</a>
       <a class="bwa" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> Activar ahora gratis</a>
     </div>
     <div class="hbgs">
       <span class="hbg"><span class="hd" style="background:var(--c);box-shadow:0 0 6px var(--c)"></span>+12.000 canales</span>
-      <span class="hbg"><span class="hd" style="background:var(--g);box-shadow:0 0 6px var(--g)"></span>Fútbol boliviano HD</span>
+      <span class="hbg"><span class="hd" style="background:var(--g);box-shadow:0 0 6px var(--g)"></span>Temporada mundialera</span>
       <span class="hbg"><span class="hd" style="background:var(--m);box-shadow:0 0 6px var(--m)"></span>3 min activación</span>
       <span class="hbg"><span class="hd" style="background:var(--gr);box-shadow:0 0 6px var(--gr)"></span>1 día gratis</span>
     </div>
@@ -434,14 +541,14 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="tk">
-    <div class="tki"><span class="td"></span>FÚTBOL BOLIVIANO <em>EN VIVO</em></div>
+    <div class="tki"><span class="td"></span>TEMPORADA MUNDIALERA <em>EN VIVO</em></div>
     <div class="tki"><span class="td"></span>PELÍCULAS <em>51.000+</em></div>
     <div class="tki"><span class="td"></span>SERIES <em>12.000+</em></div>
     <div class="tki"><span class="td"></span>CANALES <em>12.000+ EN VIVO</em></div>
     <div class="tki"><span class="td"></span>ACTIVACIÓN <em>3 MINUTOS</em></div>
     <div class="tki"><span class="td"></span>PRUEBA <em>1 DÍA GRATIS</em></div>
     <div class="tki"><span class="td"></span>SOPORTE <em>WHATSAPP 24/7</em></div>
-    <div class="tki"><span class="td"></span>FÚTBOL BOLIVIANO <em>EN VIVO</em></div>
+    <div class="tki"><span class="td"></span>TEMPORADA MUNDIALERA <em>EN VIVO</em></div>
     <div class="tki"><span class="td"></span>PELÍCULAS <em>51.000+</em></div>
     <div class="tki"><span class="td"></span>SERIES <em>12.000+</em></div>
     <div class="tki"><span class="td"></span>CANALES <em>12.000+ EN VIVO</em></div>
@@ -451,13 +558,95 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
   </div>
 </div>
 
+<!-- MATCH ROOM -->
+<section class="match-room" id="match-room" aria-labelledby="match-title">
+  <div class="match-inner">
+    <div class="match-copy">
+      <div class="match-kicker">Experiencia diaria para clientes</div>
+      <h2 id="match-title">Tu <em>Match Room</em> privado</h2>
+      <p>Una zona premium para que el cliente sienta que no compró “un acceso”, sino una sala exclusiva: partidos, cine, soporte y guía de instalación en una sola experiencia visual, clara y de alto valor.</p>
+      <div class="match-actions" aria-label="Beneficios premium">
+        <span class="match-pill">🏆 Mundial vibes</span>
+        <span class="match-pill">⚡ Activación en 3 min</span>
+        <span class="match-pill">🎧 Soporte humano</span>
+        <span class="match-pill">📺 Multi-dispositivo</span>
+      </div>
+    </div>
+    <div class="match-panel" aria-label="Panel de experiencia mundialera">
+      <div class="score-card">
+        <div class="score-top"><span>Hoy en vivo</span><span>Premium HD</span></div>
+        <div class="teams">
+          <div class="team">Latino<span>Canales + Deportes</span></div>
+          <div class="versus">VS</div>
+          <div class="team">Max<span>Cine + Series</span></div>
+        </div>
+      </div>
+      <div class="daily-grid">
+        <div class="daily"><b>Modo partido</b><span>Acceso directo a deportes, ligas latinas, torneos internacionales y señal en vivo.</span></div>
+        <div class="daily"><b>Modo familia</b><span>Películas, infantiles, novelas, series completas y canales para todos los gustos.</span></div>
+        <div class="daily"><b>Modo soporte</b><span>Guía por dispositivo, código copiable y WhatsApp listo para resolver dudas.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MUNDIAL CINEMA -->
+<section class="cinema-sec" id="cinema" aria-labelledby="cinema-title">
+  <div class="cinema-inner">
+    <div class="cinema-head">
+      <div>
+        <div class="sec-tag">Video lounge mundialero</div>
+        <h2 class="sec-h2" id="cinema-title">Elige el spot y prende la experiencia</h2>
+      </div>
+      <p>Una mini sala de contenido para que tus clientes prueben el sabor premium antes de escribirte. El video grande cambia al tocar cada episodio.</p>
+    </div>
+    <div class="cinema-grid">
+      <div class="cinema-stage">
+        <video id="cinemaVideo" autoplay muted loop playsinline controls preload="metadata" poster="">
+          <source src="media/spot-mundial-1.mp4" type="video/mp4">
+          Tu navegador no soporta video HTML5.
+        </video>
+        <div class="cinema-glass">
+          <div class="cinema-now">
+            <div class="cinema-label" id="cinemaKicker">Spot principal</div>
+            <h3 id="cinemaName">Mundial Premium</h3>
+            <p id="cinemaDesc">El spot grande de temporada: energía de cancha, sensación de evento y promesa premium para activar por WhatsApp.</p>
+          </div>
+          <button class="cinema-sound" type="button" id="cinemaSound">Activar sonido</button>
+        </div>
+      </div>
+      <div class="cinema-list" role="list" aria-label="Selecciona un video">
+        <button class="reel-card on" type="button" data-num="01" data-src="media/spot-mundial-1.mp4" data-kicker="Spot principal" data-name="Mundial Premium" data-desc="El spot grande de temporada: energía de cancha, sensación de evento y promesa premium para activar por WhatsApp.">
+          <span class="reel-chip">Hero reel</span>
+          <b>Mundial Premium</b>
+          <span>La pieza más fuerte para vender exclusividad, emoción y valor de temporada.</span>
+        </button>
+        <button class="reel-card" type="button" data-num="02" data-src="media/basic-model.mp4" data-kicker="Micro demo" data-name="Acceso inmediato" data-desc="Clip corto para reforzar que la activación es simple, rápida y usable en el día a día.">
+          <span class="reel-chip">Rápido</span>
+          <b>Acceso inmediato</b>
+          <span>Ideal para clientes que quieren entender la propuesta sin leer demasiado.</span>
+        </button>
+        <button class="reel-card" type="button" data-num="03" data-src="media/mundial-extra.mp4" data-kicker="Extra vibe" data-name="Modo celebración" data-desc="Un segundo aire visual para mantener la página viva, con tono social y de temporada.">
+          <span class="reel-chip">Social</span>
+          <b>Modo celebración</b>
+          <span>Perfecto para que la landing se sienta actual, compartible y menos corporativa.</span>
+        </button>
+      </div>
+    </div>
+    <div class="cinema-foot">
+      <span><strong>Tip:</strong> toca un episodio, activa sonido y úsalo como demo comercial en vivo.</span>
+      <a class="bwa" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> Quiero mi acceso</a>
+    </div>
+  </div>
+</section>
+
 <!-- VIDEO SHOWCASE -->
-<section class="video-sec" aria-label="Tu Latino TV Max en acción">
+<section class="video-sec" id="demo" aria-label="Tu Latino TV Max en acción">
   <div class="video-inner">
     <div style="text-align:center;margin-bottom:28px">
-      <div class="sec-tag" style="justify-content:center">Tu Latino TV Max en acción</div>
-      <h2 class="sec-h2">Así se ve tu <span style="color:var(--c)">entretenimiento</span></h2>
-      <p style="font-size:14px;color:var(--fg2);line-height:1.6;max-width:460px;margin:8px auto 0">Fútbol, películas, series y más — todo desde una sola pantalla, en todos tus dispositivos.</p>
+      <div class="sec-tag" style="justify-content:center">Spot oficial de temporada</div>
+      <h2 class="sec-h2">Cuando empieza el partido, <span style="color:var(--g)">la casa se vuelve estadio</span></h2>
+      <p style="font-size:14px;color:var(--fg2);line-height:1.6;max-width:560px;margin:8px auto 0">Un spot mundialero para sentir la experiencia antes de activarla: energía de cancha, cine en casa y una pantalla lista para todos.</p>
     </div>
     <div class="video-wrap">
       <div class="video-label">Tu Latino TV Max</div>
@@ -470,7 +659,7 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
         playsinline
         style="width:100%;height:auto;object-fit:contain;background:#000;display:block"
       >
-        <source src="hero-bg.mp4" type="video/mp4">
+        <source src="media/spot-mundial-1.mp4" type="video/mp4">
         Tu navegador no soporta video HTML5.
       </video>
     </div>
@@ -582,19 +771,31 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
 <!-- FINAL -->
 <section class="final-sec">
   <div class="fin-in">
-    <h2 class="fin-h">Todo listo para<br>vivir <em>la pasión</em></h2>
-    <p class="fin-sub">1 día gratis, sin contrato, sin pagos adelantados.<br>Activa ahora mismo por WhatsApp.</p>
+    <h2 class="fin-h">Tu prueba empieza<br>antes del <em>primer gol</em></h2>
+    <p class="fin-sub">No te pedimos fe: pruébalo 1 día gratis, revisa la calidad en tu propio dispositivo y decide con calma. Sin contrato, sin pagos adelantados.</p>
+    <div class="social-proof" aria-label="Razones para activar la prueba gratis">
+      <div class="proof-card"><b>Activas en minutos</b><span>Te guiamos por WhatsApp hasta que quede funcionando en tu pantalla.</span></div>
+      <div class="proof-card"><b>Pruebas con tu internet</b><span>Ves la calidad real en casa antes de comprometerte.</span></div>
+      <div class="proof-card"><b>Soporte humano</b><span>Sin bots eternos: una persona te acompaña si algo se traba.</span></div>
+    </div>
     <div class="wa-wrap">
       <div class="war" aria-hidden="true"></div><div class="war" aria-hidden="true"></div><div class="war" aria-hidden="true"></div>
-      <a class="bwa-xl" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> ACTIVAR 1 DÍA GRATIS</a>
+      <a class="bwa-xl" href="https://wa.me/59169717743?text=Hola+quiero+activar+mi+prueba+gratis+de+Tu+Latino+TV+Max+%F0%9F%93%BA%E2%9A%BD" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> QUIERO MI PRUEBA GRATIS</a>
     </div>
-    <p class="fin-note">Sin contratos · Sin pagos adelantados · Soporte directo</p>
+    <p class="fin-note">Cupo de prueba sujeto a disponibilidad diaria · Sin contratos · Soporte directo</p>
+    <div class="social-row" aria-label="Redes sociales oficiales">
+      <a class="social-link social-ig" href="https://www.instagram.com/tulatinomax/" target="_blank" rel="noopener">Instagram oficial</a>
+      <a class="social-link social-fb" href="https://www.facebook.com/profile.php?id=61590454563401" target="_blank" rel="noopener">Facebook oficial</a>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="fl">TU LATINO <b>TV</b> <em>MAX</em></div>
-  <p>Entretenimiento latino en una sola pantalla.<br>La calidad puede variar según la velocidad de tu conexión a internet.<br>© 2026 Tu Latino TV Max</p>
+  <p>Entretenimiento latino en una sola pantalla. Síguenos para novedades, promos y contenido mundialero.<br>
+    <a href="https://www.instagram.com/tulatinomax/" target="_blank" rel="noopener">Instagram</a> ·
+    <a href="https://www.facebook.com/profile.php?id=61590454563401" target="_blank" rel="noopener">Facebook</a><br>
+    La calidad puede variar según la velocidad de tu conexión a internet.<br>© 2026 Tu Latino TV Max</p>
 </footer>
 
 <!-- PARTICLES -->
@@ -607,6 +808,44 @@ footer p{font-size:11px;color:var(--fg3);line-height:1.7;max-width:500px;margin:
   function init(){const n=w<600?28:60;pts=[];for(let i=0;i<n;i++)pts.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+.3,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,c:cols[Math.floor(Math.random()*cols.length)],o:Math.random()*.35+.1})}
   function draw(){ctx.clearRect(0,0,w,h);pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c+p.o+')';ctx.fill();p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0});requestAnimationFrame(draw)}
   window.addEventListener('resize',()=>{resize();init()},{passive:true});resize();init();draw();
+})();
+</script>
+
+<!-- MUNDIAL CINEMA ENGINE -->
+<script>
+(function(){
+  const video = document.getElementById('cinemaVideo');
+  const cards = document.querySelectorAll('.reel-card');
+  const name = document.getElementById('cinemaName');
+  const desc = document.getElementById('cinemaDesc');
+  const kicker = document.getElementById('cinemaKicker');
+  const sound = document.getElementById('cinemaSound');
+  if (!video || !cards.length) return;
+
+  function select(card) {
+    cards.forEach(c => c.classList.remove('on'));
+    card.classList.add('on');
+    const src = card.dataset.src;
+    if (video.currentSrc.indexOf(src) === -1) {
+      video.src = src;
+      video.load();
+    }
+    kicker.textContent = card.dataset.kicker;
+    name.textContent = card.dataset.name;
+    desc.textContent = card.dataset.desc;
+    video.muted = true;
+    sound.textContent = 'Activar sonido';
+    const play = video.play();
+    if (play && play.catch) play.catch(() => {});
+  }
+
+  cards.forEach(card => card.addEventListener('click', () => select(card)));
+  sound && sound.addEventListener('click', () => {
+    video.muted = !video.muted;
+    sound.textContent = video.muted ? 'Activar sonido' : 'Silenciar';
+    const play = video.play();
+    if (play && play.catch) play.catch(() => {});
+  });
 })();
 </script>
 
@@ -865,7 +1104,7 @@ function initGSAP() {
   /* ─── SCROLL REVEALS — fixed with fromTo + forEach ─── */
 
   // Generic fade+slide up
-  gsap.utils.toArray('.sh, .sec-tag, .sec-h2, .sec-sub, .dbar, .dg, .shdr, .shelf-hdr, .sgrid > div, .feat-inner > *, .fin-in > *, .ac-card').forEach(el => {
+  gsap.utils.toArray('.sh, .sec-tag, .sec-h2, .sec-sub, .dbar, .dg, .shdr, .shelf-hdr, .sgrid > div, .feat-inner > *, .fin-in > *, .ac-card, .cinema-stage, .cinema-foot').forEach(el => {
     gsap.fromTo(el,
       { opacity: 0, y: 34 },
       { opacity: 1, y: 0, duration: .85, ease: 'power3.out',
@@ -873,6 +1112,13 @@ function initGSAP() {
       }
     );
   });
+
+  gsap.fromTo('.reel-card',
+    { opacity: 0, y: 24 },
+    { opacity: 1, y: 0, duration: .7, ease: 'power3.out', stagger: .08,
+      scrollTrigger: { trigger: '.cinema-list', start: 'top 88%', toggleActions: 'play none none none' }
+    }
+  );
 
   // Stat items counter
   gsap.utils.toArray('.hs').forEach((el, i) => {
